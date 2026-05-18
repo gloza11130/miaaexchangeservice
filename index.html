@@ -1,0 +1,1026 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <meta name="description" content="Miaaexchange Services - Instant cryptocurrency exchange with mining rewards, bonuses, and 24/7 support.">
+  <title>Miaaexchange Services | Instant Crypto Exchange & Mining</title>
+  <!-- Chart.js CDN for advanced charts -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <style>
+    /* ========== RESET & GLOBAL ========== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Arial', sans-serif;
+      background: transparent;
+      position: relative;
+      padding-bottom: 140px;  /* space for fixed footer */
+    }
+
+    /* ========== BACKGROUND VIDEO (fixed, fullscreen) ========== */
+    .bg-video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -2;
+      overflow: hidden;
+    }
+
+    .bg-video video {
+      min-width: 100%;
+      min-height: 100%;
+      width: auto;
+      height: auto;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      object-fit: cover;
+    }
+
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.55);
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    /* ========== NAVIGATION ========== */
+    nav {
+      background: rgba(0, 0, 0, 0.88);
+      padding: 15px;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      backdrop-filter: blur(1px);
+      position: relative;
+      z-index: 5;
+    }
+
+    nav a {
+      color: white;
+      margin: 0 15px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: 0.2s;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+      color: #ff69b4;
+    }
+
+    /* ========== HEADER SECTION ========== */
+    header {
+      text-align: center;
+      padding: 40px;
+      background: rgba(238, 238, 238, 0.92);
+      border-radius: 0;
+      margin: 0;
+    }
+
+    header h1 {
+      font-size: 26px;
+      color: #111;
+    }
+
+    header p, header ul {
+      max-width: 800px;
+      margin: 15px auto;
+      line-height: 1.6;
+      font-size: 16px;
+      color: #1e1e1e;
+    }
+
+    header ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    header ul li {
+      margin: 8px 0;
+    }
+
+    /* ========== OFFICE PEOPLE IMAGE (beautiful team) WITH GAP ========== */
+    .office-showcase {
+      max-width: 900px;
+      margin: 30px auto 40px;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+      background: #fff;
+      transition: transform 0.2s;
+    }
+    .office-showcase:hover {
+      transform: scale(1.01);
+    }
+    .office-showcase img {
+      width: 100%;
+      height: auto;
+      display: block;
+      object-fit: cover;
+    }
+    @media (max-width: 768px) {
+      .office-showcase {
+        margin: 20px 15px 35px;
+        border-radius: 16px;
+      }
+    }
+
+    /* ========== BONUS OFFERS ========== */
+    .bonus-offers {
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 30px;
+      background: rgba(255, 255, 255, 0.93);
+      border-radius: 10px;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+      text-align: center;
+      backdrop-filter: blur(2px);
+    }
+
+    .bonus-offers h2 {
+      font-size: 28px;
+      color: #222;
+      margin-bottom: 20px;
+    }
+
+    .bonus-offers p {
+      font-size: 18px;
+      color: #333;
+      margin-bottom: 30px;
+    }
+
+    .bonus-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      margin-top: 30px;
+    }
+
+    .bonus-tier {
+      background: rgba(248, 248, 248, 0.9);
+      padding: 20px;
+      border-radius: 8px;
+      border-left: 4px solid #ff69b4;
+    }
+
+    .bonus-tier strong {
+      font-size: 20px;
+      color: #222;
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    .bonus-tier span {
+      font-size: 18px;
+      color: #444;
+    }
+
+    /* ========== EXCHANGE BUTTON ========== */
+    .exchange-btn-container {
+      display: flex;
+      justify-content: center;
+      margin: 50px auto;
+      width: fit-content;
+      padding: 20px;
+      background: rgba(0, 0, 0, 0.2);
+      border-radius: 12px;
+    }
+
+    .exchange-btn {
+      display: inline-block;
+      text-decoration: none;
+      background: linear-gradient(135deg, #ff69b4, #ff1493);
+      color: white;
+      font-size: 24px;
+      font-weight: bold;
+      text-transform: uppercase;
+      padding: 18px 40px;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(255, 105, 180, 0.4);
+    }
+
+    .exchange-btn:hover {
+      background: linear-gradient(135deg, #ff1493, #ff69b4);
+      transform: scale(1.05);
+    }
+
+    /* ========== PARTNERS SECTION (logos reduced) ========== */
+    .partners {
+      text-align: center;
+      background: rgba(240, 240, 240, 0.92);
+      padding: 30px;
+      margin-top: 80px;
+    }
+
+    .partners h2 {
+      font-size: 24px;
+      margin-bottom: 20px;
+      color: #1e1e1e;
+    }
+
+    .partners img {
+      filter: grayscale(100%);
+      margin: 0 15px;
+      width: 70px;
+      vertical-align: middle;
+      opacity: 0.9;
+      transition: 0.2s;
+    }
+
+    .partners img:hover {
+      filter: grayscale(0%);
+      opacity: 1;
+    }
+
+    /* ========== PROFITS DASHBOARD (charts) ========== */
+    .profits-dashboard {
+      max-width: 1300px;
+      margin: 60px auto 40px;
+      padding: 30px 25px;
+      background: rgba(255, 255, 255, 0.94);
+      border-radius: 24px;
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
+      backdrop-filter: blur(2px);
+      text-align: center;
+    }
+
+    .profits-dashboard h2 {
+      font-size: 32px;
+      color: #1a1a2e;
+      margin-bottom: 8px;
+      font-weight: 700;
+    }
+
+    .profits-dashboard .section-sub {
+      font-size: 17px;
+      color: #4a4a5a;
+      margin-bottom: 40px;
+      border-bottom: 2px solid #ff69b4;
+      display: inline-block;
+      padding-bottom: 6px;
+    }
+
+    .charts-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+      justify-content: center;
+    }
+
+    .chart-card {
+      flex: 1;
+      min-width: 280px;
+      background: #ffffffcc;
+      backdrop-filter: blur(4px);
+      border-radius: 20px;
+      padding: 20px 18px 25px;
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.05);
+      transition: transform 0.2s;
+      border: 1px solid rgba(255, 105, 180, 0.2);
+    }
+
+    .chart-card:hover {
+      transform: translateY(-4px);
+    }
+
+    .chart-card h3 {
+      font-size: 24px;
+      margin-bottom: 15px;
+      color: #222;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .chart-card p.note {
+      font-size: 13px;
+      color: #555;
+      margin-top: 18px;
+      background: #f8f8f8;
+      padding: 8px 12px;
+      border-radius: 40px;
+      display: inline-block;
+    }
+
+    canvas {
+      max-height: 340px;
+      width: 100%;
+      margin: 10px 0;
+    }
+
+    .weekly-stats {
+      margin-top: 20px;
+      font-size: 14px;
+      color: #2c3e66;
+      background: #f0f2f5;
+      padding: 10px;
+      border-radius: 32px;
+    }
+
+    /* ========== TESTIMONIALS CAROUSEL ========== */
+    .testimonials {
+      max-width: 1200px;
+      margin: 50px auto;
+      text-align: center;
+      background: rgba(0, 0, 0, 0.85);
+      padding: 40px 30px;
+      border-radius: 10px;
+      backdrop-filter: blur(1px);
+    }
+
+    .testimonials h2 {
+      font-size: 28px;
+      margin-bottom: 10px;
+      color: #fff;
+    }
+
+    .testimonials h3 {
+      font-size: 18px;
+      color: #ccc;
+      margin-bottom: 35px;
+    }
+
+    .carousel-wrapper {
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+      padding: 10px 0 30px;
+    }
+
+    .carousel-container {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .carousel-slides {
+      width: 85%;
+      margin: 0 auto;
+      position: relative;
+      min-height: 360px;
+    }
+
+    .carousel-slide {
+      display: none;
+      animation: fadeEffect 0.4s ease;
+    }
+
+    .carousel-slide.active {
+      display: block;
+    }
+
+    .testimonial-box {
+      background: rgba(17, 17, 17, 0.92);
+      padding: 28px 25px;
+      border-radius: 12px;
+      border: 1px solid rgba(51, 51, 51, 0.8);
+      text-align: left;
+      transition: 0.2s;
+      min-height: 320px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .testimonial-box:hover {
+      transform: translateY(-3px);
+    }
+
+    .testimonial-image {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background-color: #ff69b4;
+      margin: 0 auto 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 26px;
+      font-weight: bold;
+    }
+
+    .testimonial-content {
+      flex-grow: 1;
+    }
+
+    .testimonial-box p {
+      font-size: 15px;
+      line-height: 1.65;
+      margin-bottom: 18px;
+      color: #f0f0f0;
+    }
+
+    .testimonial-author {
+      font-weight: bold;
+      color: #ff69b4;
+      font-size: 14px;
+      margin-top: auto;
+      padding-top: 15px;
+      border-top: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .carousel-btn {
+      background: rgba(0, 0, 0, 0.65);
+      border: none;
+      color: white;
+      font-size: 28px;
+      font-weight: bold;
+      cursor: pointer;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: 0.2s;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 12;
+      backdrop-filter: blur(4px);
+    }
+
+    .carousel-btn:hover {
+      background: #ff69b4;
+      color: #111;
+    }
+
+    .carousel-prev { left: 5px; }
+    .carousel-next { right: 5px; }
+
+    .carousel-dots {
+      text-align: center;
+      margin-top: 25px;
+    }
+
+    .dot {
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background-color: #bbb;
+      margin: 0 6px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .dot.active-dot {
+      background-color: #ff69b4;
+      width: 14px;
+      height: 14px;
+    }
+
+    @keyframes fadeEffect {
+      from { opacity: 0.4; }
+      to { opacity: 1; }
+    }
+
+    /* ========== CONTACT SECTION (REDUCED & COMPACT) ========== */
+    .contact-section {
+      max-width: 750px;
+      margin: 40px auto 30px auto;
+      padding: 28px 24px;
+      background: rgba(255, 255, 255, 0.96);
+      border-radius: 20px;
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.2);
+      backdrop-filter: blur(2px);
+      text-align: center;
+      transition: 0.2s;
+    }
+
+    .contact-section h2 {
+      font-size: 28px;
+      margin-bottom: 6px;
+      color: #1e1e1e;
+      letter-spacing: -0.2px;
+    }
+
+    .contact-section .contact-sub {
+      font-size: 16px;
+      color: #444;
+      margin-bottom: 24px;
+      border-bottom: 2px solid #ff69b4;
+      display: inline-block;
+      padding-bottom: 5px;
+    }
+
+    .contact-card {
+      background: linear-gradient(145deg, #f9f9f9, #ffffff);
+      border-radius: 20px;
+      padding: 18px 20px;
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.05);
+      text-align: left;
+      border: 1px solid rgba(0, 0, 0, 0.05);
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 16px;
+      padding: 6px 8px;
+      border-radius: 14px;
+      transition: 0.2s;
+      background: rgba(255, 255, 240, 0.3);
+    }
+
+    .contact-item:hover {
+      background: rgba(255, 105, 180, 0.08);
+      transform: translateX(3px);
+    }
+
+    .contact-icon {
+      font-size: 28px;
+      min-width: 46px;
+      text-align: center;
+      background: #fff0f5;
+      padding: 8px;
+      border-radius: 50px;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+    }
+
+    .contact-details {
+      flex: 1;
+    }
+
+    .contact-details strong {
+      font-size: 17px;
+      color: #111;
+      display: block;
+      margin-bottom: 3px;
+      letter-spacing: -0.2px;
+    }
+
+    .contact-details span, .contact-details a {
+      font-size: 15px;
+      color: #2c2c2c;
+      text-decoration: none;
+      font-weight: 500;
+      word-break: break-word;
+    }
+
+    .contact-details a:hover {
+      color: #ff69b4;
+      text-decoration: underline;
+    }
+
+    .contact-note {
+      margin-top: 20px;
+      font-size: 13px;
+      color: #5a5a5a;
+      background: rgba(0, 0, 0, 0.03);
+      padding: 10px;
+      border-radius: 28px;
+      text-align: center;
+    }
+
+    /* ========== CERTIFICATE IMAGE & PLAIN TEXT (WILD SPACE) ========== */
+    .certificate-wrapper {
+      max-width: 750px;
+      margin: 60px auto 60px auto;
+      text-align: center;
+    }
+    .certificate-wrapper img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 12px;
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.1);
+      background: #fff;
+    }
+    .certificate-caption {
+      margin-top: 20px;
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      color: #1e1e2a;
+      text-transform: uppercase;
+      font-family: 'Arial', sans-serif;
+    }
+
+    @media (max-width: 768px) {
+      .certificate-wrapper {
+        margin: 40px 20px 40px 20px;
+      }
+      .certificate-caption {
+        font-size: 15px;
+        letter-spacing: 1px;
+      }
+      .contact-section {
+        margin: 30px 20px 20px 20px;
+        padding: 20px 18px;
+      }
+      .contact-card {
+        padding: 14px 16px;
+      }
+      .contact-item {
+        gap: 12px;
+        margin-bottom: 12px;
+      }
+      .contact-icon {
+        font-size: 24px;
+        min-width: 40px;
+      }
+      .contact-details strong {
+        font-size: 15px;
+      }
+      .contact-details span, .contact-details a {
+        font-size: 13px;
+      }
+    }
+
+    /* ========== FOOTER (fixed) ========== */
+    footer {
+      background: rgba(0, 0, 0, 0.9);
+      color: #fff;
+      text-align: center;
+      padding: 20px;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      font-size: 14px;
+      backdrop-filter: blur(3px);
+      z-index: 10;
+    }
+
+    /* ========== RESPONSIVE OVERRIDES ========== */
+    @media (max-width: 860px) {
+      .charts-row { flex-direction: column; }
+      .chart-card { width: 100%; }
+      .partners img { width: 55px; margin: 0 10px; }
+    }
+
+    @media (max-width: 768px) {
+      .carousel-slides { width: 92%; }
+      .carousel-btn { width: 36px; height: 36px; font-size: 22px; }
+      .testimonial-box { padding: 20px; }
+      .exchange-btn { font-size: 20px; padding: 14px 28px; }
+      nav a { margin: 0 8px; font-size: 13px; }
+      body { padding-bottom: 160px; }
+      .partners img { width: 55px; margin: 0 8px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Background video (fullscreen, fixed) - Clean US commercial environment -->
+<div class="bg-video" aria-hidden="true">
+  <video autoplay muted loop playsinline>
+    <source src="https://assets.mixkit.co/videos/preview/mixkit-modern-office-buildings-and-skyline-4117-large.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+</div>
+<div class="overlay" aria-hidden="true"></div>
+
+<!-- Navigation Bar -->
+<nav aria-label="Main navigation">
+  <a href="index.html">Home</a>
+  <a href="about_us.html">About Us</a>
+  <a href="exchange.html">Exchange</a>
+  <a href="bitcoin_mining.html">Bitcoin Mining</a>
+  <a href="faq.html">FAQ</a>
+  <a href="#contact-section">Contact Us</a>
+</nav>
+
+<header>
+  <h1>Welcome to Miaaexchange Services</h1>
+  
+  <!-- REPLACED CONTENT: Message B (as requested) -->
+  <p>
+    At miaaexchange services, earning through cryptocurrency is simple, fast, and seamless. Our platform processes transactions instantly, with profits credited to your account in less than five minutes.
+    <br><br>
+    Unlike many platforms that keep users waiting for days or even weeks, we are committed to delivering quick, smooth, and dependable payouts every time.
+    <br><br>
+    This dedication to speed, reliability, and efficiency is why miaaexchange services is recognized among the world’s leading e-currency exchange platforms.
+  </p>
+
+  <!-- Beautiful people & office picture -->
+  <div class="office-showcase">
+    <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1000&auto=format" alt="Happy diverse team collaborating in a modern office" loading="lazy">
+  </div>
+
+  <h2>How It Works</h2>
+  <p>
+    Create two Bitcoin wallets.<br>
+    Transfer funds between them using our platform.<br>
+    Each transfer passes through our mining pool, generating instant profit.<br>
+    Example: Exchange $100 → Receive $125 instantly.
+  </p>
+  <h2>Why Choose Miaaexchange Services?</h2>
+  <ul>
+    <li>No fees — ever</li>
+    <li>Instant rewards with every exchange</li>
+    <li>Fast & simple process that takes only seconds</li>
+  </ul>
+  <h2>Our Commitment</h2>
+  <ul>
+    <li>No registration fees</li>
+    <li>No hidden charges</li>
+    <li>Automatic withdrawals — 100% free</li>
+    <li>Global access from any device, anywhere</li>
+  </ul>
+  <h2>Why We Stand Out</h2>
+  <ul>
+    <li>Lightning-fast cloud mining across thousands of Bitcoin addresses in minutes</li>
+    <li>Simple setup — all you need is your wallet address</li>
+    <li>Trusted since 2012 with awards and global recognition</li>
+    <li>Earning potential up to $50,000 in just 24 hours</li>
+  </ul>
+</header>
+
+<!-- Bonus Offers Grid -->
+<section class="bonus-offers">
+  <h2><strong>Special Bonus Offers</strong></h2>
+  <p>We reward all first-time exchangers with instant bonuses when starting with $150 or more.</p>
+  <div class="bonus-grid">
+    <div class="bonus-tier"><strong>Exchange $150–$200</strong><span>Get $50 bonus</span></div>
+    <div class="bonus-tier"><strong>Exchange $250–$300</strong><span>Get $80 bonus</span></div>
+    <div class="bonus-tier"><strong>Exchange $350–$400</strong><span>Get $100 bonus</span></div>
+    <div class="bonus-tier"><strong>Exchange $450–$500</strong><span>Get $150 bonus</span></div>
+    <div class="bonus-tier"><strong>Exchange $550–$600</strong><span>Get $200 bonus</span></div>
+  </div>
+  <p style="margin-top: 30px; font-weight: bold;">Bonuses increase with higher exchanges — up to our maximum limit of $50,000.</p>
+</section>
+
+<!-- Profit Analytics: Weekly Histogram + Annual Pie Chart -->
+<section class="profits-dashboard">
+  <h2>📊 Profit Analytics</h2>
+  <div class="section-sub">Real-time projections • Daily & annual earnings</div>
+  <div class="charts-row">
+    <!-- Weekly histogram -->
+    <div class="chart-card">
+      <h3>📈 7‑Days Profit (Histogram)</h3>
+      <canvas id="weeklyHistogram" width="400" height="300" style="max-width:100%; height:auto;"></canvas>
+      <div class="weekly-stats">
+        ⚡ Daily earnings between <strong>$1,200 – $4,950</strong> | Weekly total: <strong>$22,150</strong>
+      </div>
+      <p class="note">Based on live exchange & mining rewards (per day)</p>
+    </div>
+    <!-- Annual pie chart -->
+    <div class="chart-card">
+      <h3>🥧 Annual Profit Sources</h3>
+      <canvas id="annualPieChart" width="400" height="300" style="max-width:100%; height:auto;"></canvas>
+      <div class="weekly-stats">
+        🏆 Total annual profit: <strong>$1,340,000</strong> — up to 34% ROI
+      </div>
+      <p class="note">Yearly distribution (Exchange, Mining, Referrals, Bonuses)</p>
+    </div>
+  </div>
+</section>
+
+<!-- Call to action button -->
+<div class="exchange-btn-container">
+  <a href="exchange.html" class="exchange-btn">Exchange Now</a>
+</div>
+
+<!-- Partners / As seen in section (logos) -->
+<section class="partners">
+  <h2>As Seen In</h2>
+  <img src="https://i.imgur.com/T3SJsZZ.png" alt="Partner logo - financial authority">
+  <img src="https://i.imgur.com/TxWJVFZ.png" alt="Partner logo - blockchain weekly">
+  <img src="https://i.imgur.com/ZAohvht.png" alt="Partner logo - crypto insider">
+  <img src="https://i.imgur.com/K8osoIc.png" alt="Partner logo - digital asset journal">
+</section>
+
+<!-- Testimonials Carousel (auto-slide) -->
+<section class="testimonials" aria-label="User testimonials">
+  <h2><strong>What Our Users Say</strong></h2>
+  <h3>Real stories from our global community</h3>
+  <div class="carousel-wrapper">
+    <div class="carousel-container">
+      <button class="carousel-btn carousel-prev" aria-label="Previous testimonial">❮</button>
+      <div class="carousel-slides" id="carouselSlides">
+        <div class="carousel-slide active">
+          <div class="testimonial-box"><div class="testimonial-image" aria-hidden="true">1</div><div class="testimonial-content"><p>"Mighty thanks to Miaaexchange Services and all the founders for giving me this opportunity to bring back my family in one piece with the money I have made here. I am a single mother of 2. I lost my job just same month my ex-husband left us and life became hell for me and my kids."</p></div><div class="testimonial-author">- Anonymous</div></div>
+        </div>
+        <div class="carousel-slide">
+          <div class="testimonial-box"><div class="testimonial-image" aria-hidden="true">2</div><div class="testimonial-content"><p>"I first heard about Miaaexchange Services when it was discussed in business news. I reluctantly join just to see what its about. I followed the 7 steps given and in less than 24 hours my bitcoin wallet was already piling up with bitcoins."</p></div><div class="testimonial-author">- Helen Greg, Poland</div></div>
+        </div>
+        <div class="carousel-slide">
+          <div class="testimonial-box"><div class="testimonial-image" aria-hidden="true">3</div><div class="testimonial-content"><p>"If you are still searching google on how to make money online then I suggest you start with Miaaexchange Services. This is what I called spoilt ATM. This auto miner wont just stop sending tons of bitcoins into my wallet."</p></div><div class="testimonial-author">- Dora, Turkey</div></div>
+        </div>
+        <div class="carousel-slide">
+          <div class="testimonial-box"><div class="testimonial-image" aria-hidden="true">4</div><div class="testimonial-content"><p>"My name is Ferndi from Greece. My first money making site was fiverr but really slow in payment and then I got introduced to Miaaexchange Services from a bitcoin discussion forum. I have never experienced any regrets since I joined."</p></div><div class="testimonial-author">- Ferndi, Greece</div></div>
+        </div>
+        <div class="carousel-slide">
+          <div class="testimonial-box"><div class="testimonial-image" aria-hidden="true">5</div><div class="testimonial-content"><p>"My name is Kehinde from Nigeria. A very big thumbs up to Miaaexchange Services. Since I started using Miaaexchange Services the least amount I have earned a day is $200. I earn as much as $350-500 daily without even touching my computer."</p></div><div class="testimonial-author">- Kehinde Ololade, Nigeria</div></div>
+        </div>
+        <div class="carousel-slide">
+          <div class="testimonial-box"><div class="testimonial-image" aria-hidden="true">6</div><div class="testimonial-content"><p>"Miaaexchange services is the best platform I have ever seen when it comes to making money online from home. I have finally abandoned my 9-5 stressful job when I got introduced to Miaaexchange Services in January 2012."</p></div><div class="testimonial-author">- Mark Fred, USA</div></div>
+        </div>
+        <div class="carousel-slide">
+          <div class="testimonial-box"><div class="testimonial-image" aria-hidden="true">7</div><div class="testimonial-content"><p>"I am a blogger and stylist. All my life of working as a stylist/blogger I have never seen any high and fast paying site like Miaaexchange Services. I thought it was one of those scam sites when I first bumped into them last year."</p></div><div class="testimonial-author">- Melvina, Canada</div></div>
+        </div>
+        <div class="carousel-slide">
+          <div class="testimonial-box"><div class="testimonial-image" aria-hidden="true">8</div><div class="testimonial-content"><p>"My wife and I have been searching the internet for years on how to make money online. A friend on facebook referred us to Miaaexchange Services and told us we could even make as much as $500 daily if we wish."</p></div><div class="testimonial-author">- John Fisher, UK</div></div>
+        </div>
+        <div class="carousel-slide">
+          <div class="testimonial-box"><div class="testimonial-image" aria-hidden="true">9</div><div class="testimonial-content"><p>"Thanks to Miaaexchange Services for turning my life around. I was totally in debt when I got to know about Miaaexchange Services from a conversation I over heard in the train. Today I earned over $500 daily in my bitcoin account."</p></div><div class="testimonial-author">- Jon, China</div></div>
+        </div>
+        <div class="carousel-slide">
+          <div class="testimonial-box"><div class="testimonial-image" aria-hidden="true">10</div><div class="testimonial-content"><p>"Miaaexchange Services is the first high paying bitcoin mining platform I have ever joined. I love this site because you don't have to make an investment to join. I joined on November 2012 and was shocked to see bitcoins rolling in."</p></div><div class="testimonial-author">- Morrison, Netherlands</div></div>
+        </div>
+      </div>
+      <button class="carousel-btn carousel-next" aria-label="Next testimonial">❯</button>
+    </div>
+    <div class="carousel-dots" id="carouselDots"></div>
+  </div>
+</section>
+
+<!-- ========== CONTACT SECTION (REDUCED, COMPACT) ========== -->
+<section id="contact-section" class="contact-section">
+  <h2>📞 Contact Us</h2>
+  <div class="contact-sub">We're available 24/7 — reach out directly</div>
+  <div class="contact-card">
+    <div class="contact-item">
+      <div class="contact-icon" aria-hidden="true">📍</div>
+      <div class="contact-details">
+        <strong>Office Address</strong>
+        <span>134 Coolidge Ave, Watertown, MA, 02472</span>
+      </div>
+    </div>
+    <div class="contact-item">
+      <div class="contact-icon" aria-hidden="true">✉️</div>
+      <div class="contact-details">
+        <strong>Email</strong>
+        <a href="mailto:miaaexchangeservices@gmail.com">miaaexchangeservices@gmail.com</a>
+      </div>
+    </div>
+    <div class="contact-item">
+      <div class="contact-icon" aria-hidden="true">📞</div>
+      <div class="contact-details">
+        <strong>Phone Number</strong>
+        <span>(800) 442-3001</span>
+      </div>
+    </div>
+    <div class="contact-note">
+      💬 Our support team replies within minutes. No contact forms — direct communication.
+    </div>
+  </div>
+</section>
+
+<!-- ========== CERTIFICATE IMAGE & PLAIN TEXT (WILD SPACE) ========== -->
+<div class="certificate-wrapper">
+  <img src="https://i.imgur.com/ulNgVzq.jpeg" alt="Official certificate of incorporation document" loading="lazy">
+  <div class="certificate-caption">CERTIFICATE OF INCORPORATION</div>
+</div>
+
+<footer>
+  Miaaexchange Services. The fastest and simplest way to generate Bitcoin online.
+</footer>
+
+<script>
+  // ========== CAROUSEL WITH AUTO-SLIDE (every 5 sec) ==========
+  (function initCarousel() {
+    const slides = document.querySelectorAll('#carouselSlides .carousel-slide');
+    const prevBtn = document.querySelector('.carousel-prev');
+    const nextBtn = document.querySelector('.carousel-next');
+    const dotsContainer = document.getElementById('carouselDots');
+    if (!slides.length) return;
+
+    let currentIndex = 0;
+    let autoInterval = null;
+    const totalSlides = slides.length;
+
+    function createDots() {
+      dotsContainer.innerHTML = '';
+      for (let i = 0; i < totalSlides; i++) {
+        const dot = document.createElement('span');
+        dot.classList.add('dot');
+        if (i === currentIndex) dot.classList.add('active-dot');
+        dot.addEventListener('click', () => {
+          stopAutoSlide();
+          goToSlide(i);
+          startAutoSlide();
+        });
+        dotsContainer.appendChild(dot);
+      }
+    }
+
+    function updateDots() {
+      const dots = document.querySelectorAll('.dot');
+      dots.forEach((dot, idx) => {
+        if (idx === currentIndex) dot.classList.add('active-dot');
+        else dot.classList.remove('active-dot');
+      });
+    }
+
+    function goToSlide(index) {
+      if (index < 0) index = totalSlides - 1;
+      if (index >= totalSlides) index = 0;
+      slides[currentIndex].classList.remove('active');
+      currentIndex = index;
+      slides[currentIndex].classList.add('active');
+      updateDots();
+    }
+
+    function nextSlide() { goToSlide(currentIndex + 1); }
+    function prevSlide() { goToSlide(currentIndex - 1); }
+    function startAutoSlide() {
+      if (autoInterval) clearInterval(autoInterval);
+      autoInterval = setInterval(() => nextSlide(), 5000);
+    }
+    function stopAutoSlide() {
+      if (autoInterval) {
+        clearInterval(autoInterval);
+        autoInterval = null;
+      }
+    }
+
+    if (nextBtn) nextBtn.addEventListener('click', () => { stopAutoSlide(); nextSlide(); startAutoSlide(); });
+    if (prevBtn) prevBtn.addEventListener('click', () => { stopAutoSlide(); prevSlide(); startAutoSlide(); });
+
+    createDots();
+    startAutoSlide();
+    window.addEventListener('beforeunload', () => { if (autoInterval) clearInterval(autoInterval); });
+  })();
+
+  // ========== CHARTS: WEEKLY HISTOGRAM & ANNUAL PIE ==========
+  document.addEventListener('DOMContentLoaded', function() {
+    // Weekly histogram (bar chart)
+    const ctxBar = document.getElementById('weeklyHistogram')?.getContext('2d');
+    if (ctxBar) {
+      new Chart(ctxBar, {
+        type: 'bar',
+        data: {
+          labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+          datasets: [{
+            label: 'Daily Profit ($)',
+            data: [1250, 2300, 3100, 2800, 4200, 4950, 3650],
+            backgroundColor: 'rgba(255, 105, 180, 0.7)',
+            borderColor: '#ff1493',
+            borderWidth: 1,
+            borderRadius: 8,
+            barPercentage: 0.7,
+            categoryPercentage: 0.8
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: true,
+          plugins: {
+            legend: { labels: { color: '#1e1e2a', font: { weight: 'bold' } } },
+            tooltip: { callbacks: { label: (ctx) => `$${ctx.raw.toLocaleString()}` } }
+          },
+          scales: {
+            y: { beginAtZero: true, title: { display: true, text: 'Profit (USD)', color: '#333' }, ticks: { callback: (val) => '$' + val } },
+            x: { title: { display: true, text: 'Days of Week', color: '#333' } }
+          }
+        }
+      });
+    }
+
+    // Annual pie chart
+    const ctxPie = document.getElementById('annualPieChart')?.getContext('2d');
+    if (ctxPie) {
+      new Chart(ctxPie, {
+        type: 'pie',
+        data: {
+          labels: ['💰 Exchange Revenue', '⛏️ Mining Pool', '🤝 Referral Commissions', '🎁 Bonus Payouts'],
+          datasets: [{
+            data: [560000, 490000, 190000, 100000],
+            backgroundColor: ['#ff69b4', '#ffb347', '#4c9aff', '#6fcf97'],
+            borderWidth: 0,
+            hoverOffset: 8
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: true,
+          plugins: {
+            legend: { position: 'bottom', labels: { color: '#222', font: { size: 12 } } },
+            tooltip: { callbacks: { label: (ctx) => `${ctx.label}: $${ctx.raw.toLocaleString()} (${((ctx.raw / 1340000)*100).toFixed(1)}%)` } }
+          }
+        }
+      });
+    }
+  });
+
+  // Smooth scroll for contact link (anchor)
+  document.querySelectorAll('a[href^="#contact-section"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      e.preventDefault();
+      const target = document.querySelector('#contact-section');
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+</script>
+</body>
+</html>
