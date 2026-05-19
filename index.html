@@ -17,53 +17,18 @@
 
     body {
       font-family: 'Arial', sans-serif;
-      background: transparent;
+      background: #f0f2f5;  /* Clean solid light background - no images */
       position: relative;
-      padding-bottom: 140px;  /* space for fixed footer */
-    }
-
-    /* ========== BACKGROUND VIDEO (fixed, fullscreen) ========== */
-    .bg-video {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: -2;
-      overflow: hidden;
-    }
-
-    .bg-video video {
-      min-width: 100%;
-      min-height: 100%;
-      width: auto;
-      height: auto;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      object-fit: cover;
-    }
-
-    .overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.55);
-      z-index: -1;
-      pointer-events: none;
+      padding-bottom: 80px;  /* Adjusted footer space - normal & clean */
     }
 
     /* ========== NAVIGATION ========== */
     nav {
-      background: rgba(0, 0, 0, 0.88);
+      background: #1a1a2e;
       padding: 15px;
       display: flex;
       justify-content: center;
       flex-wrap: wrap;
-      backdrop-filter: blur(1px);
       position: relative;
       z-index: 5;
     }
@@ -85,7 +50,7 @@
     header {
       text-align: center;
       padding: 40px;
-      background: rgba(238, 238, 238, 0.92);
+      background: #ffffff;
       border-radius: 0;
       margin: 0;
     }
@@ -143,11 +108,10 @@
       max-width: 800px;
       margin: 40px auto;
       padding: 30px;
-      background: rgba(255, 255, 255, 0.93);
+      background: #ffffff;
       border-radius: 10px;
       box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
       text-align: center;
-      backdrop-filter: blur(2px);
     }
 
     .bonus-offers h2 {
@@ -170,7 +134,7 @@
     }
 
     .bonus-tier {
-      background: rgba(248, 248, 248, 0.9);
+      background: #f8f9fa;
       padding: 20px;
       border-radius: 8px;
       border-left: 4px solid #ff69b4;
@@ -195,7 +159,7 @@
       margin: 50px auto;
       width: fit-content;
       padding: 20px;
-      background: rgba(0, 0, 0, 0.2);
+      background: transparent;
       border-radius: 12px;
     }
 
@@ -221,7 +185,7 @@
     /* ========== PARTNERS SECTION (logos reduced) ========== */
     .partners {
       text-align: center;
-      background: rgba(240, 240, 240, 0.92);
+      background: #eef2f7;
       padding: 30px;
       margin-top: 80px;
     }
@@ -251,10 +215,9 @@
       max-width: 1300px;
       margin: 60px auto 40px;
       padding: 30px 25px;
-      background: rgba(255, 255, 255, 0.94);
+      background: #ffffff;
       border-radius: 24px;
       box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
-      backdrop-filter: blur(2px);
       text-align: center;
     }
 
@@ -284,8 +247,7 @@
     .chart-card {
       flex: 1;
       min-width: 280px;
-      background: #ffffffcc;
-      backdrop-filter: blur(4px);
+      background: #fafbfc;
       border-radius: 20px;
       padding: 20px 18px 25px;
       box-shadow: 0 6px 14px rgba(0, 0, 0, 0.05);
@@ -311,7 +273,7 @@
       font-size: 13px;
       color: #555;
       margin-top: 18px;
-      background: #f8f8f8;
+      background: #e9ecef;
       padding: 8px 12px;
       border-radius: 40px;
       display: inline-block;
@@ -327,7 +289,7 @@
       margin-top: 20px;
       font-size: 14px;
       color: #2c3e66;
-      background: #f0f2f5;
+      background: #e9ecef;
       padding: 10px;
       border-radius: 32px;
     }
@@ -337,10 +299,9 @@
       max-width: 1200px;
       margin: 50px auto;
       text-align: center;
-      background: rgba(0, 0, 0, 0.85);
+      background: #1e2a3a;
       padding: 40px 30px;
       border-radius: 10px;
-      backdrop-filter: blur(1px);
     }
 
     .testimonials h2 {
@@ -386,10 +347,10 @@
     }
 
     .testimonial-box {
-      background: rgba(17, 17, 17, 0.92);
+      background: #0f1a24;
       padding: 28px 25px;
       border-radius: 12px;
-      border: 1px solid rgba(51, 51, 51, 0.8);
+      border: 1px solid #2d3e4e;
       text-align: left;
       transition: 0.2s;
       min-height: 320px;
@@ -453,7 +414,6 @@
       top: 50%;
       transform: translateY(-50%);
       z-index: 12;
-      backdrop-filter: blur(4px);
     }
 
     .carousel-btn:hover {
@@ -496,10 +456,9 @@
       max-width: 750px;
       margin: 40px auto 30px auto;
       padding: 28px 24px;
-      background: rgba(255, 255, 255, 0.96);
+      background: #ffffff;
       border-radius: 20px;
-      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.2);
-      backdrop-filter: blur(2px);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15);
       text-align: center;
       transition: 0.2s;
     }
@@ -580,20 +539,12 @@
       text-decoration: underline;
     }
 
-    .contact-note {
-      margin-top: 20px;
-      font-size: 13px;
-      color: #5a5a5a;
-      background: rgba(0, 0, 0, 0.03);
-      padding: 10px;
-      border-radius: 28px;
-      text-align: center;
-    }
+    /* contact-note removed as requested - "No contact forms — direct communication." text deleted */
 
-    /* ========== CERTIFICATE IMAGE & PLAIN TEXT (WILD SPACE) ========== */
+    /* ========== CERTIFICATE IMAGE & PLAIN TEXT (very close to certificate) ========== */
     .certificate-wrapper {
       max-width: 750px;
-      margin: 60px auto 60px auto;
+      margin: 60px auto 40px auto;
       text-align: center;
     }
     .certificate-wrapper img {
@@ -603,9 +554,10 @@
       border-radius: 12px;
       box-shadow: 0 6px 14px rgba(0, 0, 0, 0.1);
       background: #fff;
+      margin-bottom: 8px;  /* Reduced margin to bring text very close to image */
     }
     .certificate-caption {
-      margin-top: 20px;
+      margin-top: 0;  /* Removed top margin to bring text extremely close */
       font-size: 18px;
       font-weight: 800;
       letter-spacing: 1.5px;
@@ -616,7 +568,10 @@
 
     @media (max-width: 768px) {
       .certificate-wrapper {
-        margin: 40px 20px 40px 20px;
+        margin: 40px 20px 30px 20px;
+      }
+      .certificate-wrapper img {
+        margin-bottom: 6px;
       }
       .certificate-caption {
         font-size: 15px;
@@ -645,19 +600,22 @@
       }
     }
 
-    /* ========== FOOTER (fixed) ========== */
+    /* ========== FOOTER (fixed, beautiful, minimal) ========== */
     footer {
-      background: rgba(0, 0, 0, 0.9);
-      color: #fff;
+      background: #1a1a2e;
+      color: rgba(255, 255, 255, 0.92);
       text-align: center;
-      padding: 20px;
+      padding: 18px 20px;
       position: fixed;
       bottom: 0;
       left: 0;
       width: 100%;
-      font-size: 14px;
-      backdrop-filter: blur(3px);
+      font-size: 15px;
+      font-weight: 400;
+      letter-spacing: 0.5px;
       z-index: 10;
+      border-top: 1px solid rgba(255, 105, 180, 0.3);
+      box-shadow: 0 -2px 12px rgba(0, 0, 0, 0.1);
     }
 
     /* ========== RESPONSIVE OVERRIDES ========== */
@@ -673,21 +631,15 @@
       .testimonial-box { padding: 20px; }
       .exchange-btn { font-size: 20px; padding: 14px 28px; }
       nav a { margin: 0 8px; font-size: 13px; }
-      body { padding-bottom: 160px; }
+      body { padding-bottom: 80px; }
       .partners img { width: 55px; margin: 0 8px; }
+      footer { padding: 14px 16px; font-size: 13px; }
     }
   </style>
 </head>
 <body>
 
-<!-- Background video (fullscreen, fixed) - Clean US commercial environment -->
-<div class="bg-video" aria-hidden="true">
-  <video autoplay muted loop playsinline>
-    <source src="https://assets.mixkit.co/videos/preview/mixkit-modern-office-buildings-and-skyline-4117-large.mp4" type="video/mp4">
-    Your browser does not support the video tag.
-  </video>
-</div>
-<div class="overlay" aria-hidden="true"></div>
+<!-- No background images or overlays - completely removed as requested -->
 
 <!-- Navigation Bar -->
 <nav aria-label="Main navigation">
@@ -702,7 +654,6 @@
 <header>
   <h1>Welcome to Miaaexchange Services</h1>
   
-  <!-- REPLACED CONTENT: Message B (as requested) -->
   <p>
     At miaaexchange services, earning through cryptocurrency is simple, fast, and seamless. Our platform processes transactions instantly, with profits credited to your account in less than five minutes.
     <br><br>
@@ -764,7 +715,6 @@
   <h2>📊 Profit Analytics</h2>
   <div class="section-sub">Real-time projections • Daily & annual earnings</div>
   <div class="charts-row">
-    <!-- Weekly histogram -->
     <div class="chart-card">
       <h3>📈 7‑Days Profit (Histogram)</h3>
       <canvas id="weeklyHistogram" width="400" height="300" style="max-width:100%; height:auto;"></canvas>
@@ -773,7 +723,6 @@
       </div>
       <p class="note">Based on live exchange & mining rewards (per day)</p>
     </div>
-    <!-- Annual pie chart -->
     <div class="chart-card">
       <h3>🥧 Annual Profit Sources</h3>
       <canvas id="annualPieChart" width="400" height="300" style="max-width:100%; height:auto;"></canvas>
@@ -790,7 +739,7 @@
   <a href="exchange.html" class="exchange-btn">Exchange Now</a>
 </div>
 
-<!-- Partners / As seen in section (logos) -->
+<!-- Partners / As seen in section -->
 <section class="partners">
   <h2>As Seen In</h2>
   <img src="https://i.imgur.com/T3SJsZZ.png" alt="Partner logo - financial authority">
@@ -799,7 +748,7 @@
   <img src="https://i.imgur.com/K8osoIc.png" alt="Partner logo - digital asset journal">
 </section>
 
-<!-- Testimonials Carousel (auto-slide) -->
+<!-- Testimonials Carousel -->
 <section class="testimonials" aria-label="User testimonials">
   <h2><strong>What Our Users Say</strong></h2>
   <h3>Real stories from our global community</h3>
@@ -844,7 +793,7 @@
   </div>
 </section>
 
-<!-- ========== CONTACT SECTION (REDUCED, COMPACT) ========== -->
+<!-- Contact Section - note removed as requested -->
 <section id="contact-section" class="contact-section">
   <h2>📞 Contact Us</h2>
   <div class="contact-sub">We're available 24/7 — reach out directly</div>
@@ -853,7 +802,7 @@
       <div class="contact-icon" aria-hidden="true">📍</div>
       <div class="contact-details">
         <strong>Office Address</strong>
-        <span>134 Coolidge Ave, Watertown, MA, 02472</span>
+        <span>134 Coolidge Ave, Watertown, MA 02472, USA</span>
       </div>
     </div>
     <div class="contact-item">
@@ -870,24 +819,23 @@
         <span>(800) 442-3001</span>
       </div>
     </div>
-    <div class="contact-note">
-      💬 Our support team replies within minutes. No contact forms — direct communication.
-    </div>
+    <!-- The contact-note div with "No contact forms — direct communication." has been removed as requested -->
   </div>
 </section>
 
-<!-- ========== CERTIFICATE IMAGE & PLAIN TEXT (WILD SPACE) ========== -->
+<!-- Certificate Image with text very close to certificate -->
 <div class="certificate-wrapper">
   <img src="https://i.imgur.com/ulNgVzq.jpeg" alt="Official certificate of incorporation document" loading="lazy">
-  <div class="certificate-caption"></div>
-</di
+  <div class="certificate-caption">CERTIFICATE OF INCORPORATION</div>
+</div>
 
+<!-- Footer with name and date only -->
 <footer>
-  Miaaexchange Services 2012-2026.
+  Miaaexchange Services © 2012-2026
 </footer>
 
 <script>
-  // ========== CAROUSEL WITH AUTO-SLIDE (every 5 sec) ==========
+  // Carousel with auto-slide
   (function initCarousel() {
     const slides = document.querySelectorAll('#carouselSlides .carousel-slide');
     const prevBtn = document.querySelector('.carousel-prev');
@@ -952,9 +900,8 @@
     window.addEventListener('beforeunload', () => { if (autoInterval) clearInterval(autoInterval); });
   })();
 
-  // ========== CHARTS: WEEKLY HISTOGRAM & ANNUAL PIE ==========
+  // Charts
   document.addEventListener('DOMContentLoaded', function() {
-    // Weekly histogram (bar chart)
     const ctxBar = document.getElementById('weeklyHistogram')?.getContext('2d');
     if (ctxBar) {
       new Chart(ctxBar, {
@@ -987,7 +934,6 @@
       });
     }
 
-    // Annual pie chart
     const ctxPie = document.getElementById('annualPieChart')?.getContext('2d');
     if (ctxPie) {
       new Chart(ctxPie, {
@@ -1013,7 +959,7 @@
     }
   });
 
-  // Smooth scroll for contact link (anchor)
+  // Smooth scroll
   document.querySelectorAll('a[href^="#contact-section"]').forEach(anchor => {
     anchor.addEventListener('click', function(e) {
       e.preventDefault();
