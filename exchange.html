@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
   <title>Miaaexchange Services - Crypto Exchange</title>
   <style>
-    /* ----- BASE STYLES (background image ready) ----- */
+    /* ----- BASE STYLES (black background, white text) ----- */
     * {
       margin: 0;
       padding: 0;
@@ -15,25 +15,26 @@
     body {
       margin: 0;
       font-family: 'Arial', sans-serif;
-      background: transparent;
-      color: white;
+      background: #000000;  /* solid black background */
+      color: #ffffff;       /* white text base */
       padding-bottom: 150px;
       position: relative;
     }
 
-    /* ----- HEADER / NAVIGATION STYLES ----- */
+    /* ----- HEADER / NAVIGATION STYLES (black background, white text) ----- */
     nav {
-      background: rgba(0, 0, 0, 0.85);
-      backdrop-filter: blur(4px);
+      background: #000000;
+      backdrop-filter: none;
       padding: 12px 20px;
       display: flex;
       align-items: center;
       justify-content: center;
       flex-wrap: wrap;
       gap: 15px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.5);
       position: relative;
       z-index: 10;
+      border-bottom: 1px solid #333;
     }
     .nav-links {
       display: flex;
@@ -42,7 +43,7 @@
       gap: 10px 20px;
     }
     nav a {
-      color: white;
+      color: #ffffff;
       text-decoration: none;
       font-weight: 600;
       font-size: 1rem;
@@ -51,10 +52,10 @@
     }
     nav a:hover {
       text-decoration: underline;
-      color: #ffb6c1;
+      color: #cccccc;
     }
     nav a.current-page {
-      color: #ffb6c1 !important;
+      color: #ffffff !important;
       text-decoration: underline !important;
     }
     @media (max-width: 650px) {
@@ -73,36 +74,37 @@
       max-width: 900px;
       margin: 40px auto 20px;
       padding: 30px;
-      background: rgba(0,0,0,0.75);
+      background: #000000;
       border-radius: 15px;
-      box-shadow: 0 5px 20px rgba(0,0,0,0.4);
+      box-shadow: 0 5px 20px rgba(0,0,0,0.6);
       position: relative;
       z-index: 5;
+      border: 1px solid #222;
     }
     h1 {
-      color: #ff69b4;
+      color: #ffffff;
       text-align: center;
       margin-bottom: 30px;
       font-size: 32px;
-      text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+      text-shadow: none;
     }
     h2 {
-      color: #ff69b4;
+      color: #ffffff;
       text-align: center;
       margin-top: 20px;
       margin-bottom: 25px;
       font-size: 26px;
     }
     h3 {
-      color: #ffb6c1;
+      color: #dddddd;
       margin-top: 0;
       margin-bottom: 15px;
     }
 
-    /* BEAUTIFUL ACCOUNT BALANCE CARD (used inside modal now) */
+    /* ACCOUNT BALANCE CARD - enhanced visibility with bright colors */
     .balance-card {
-      background: linear-gradient(135deg, rgba(0,0,0,0.75) 0%, rgba(25,15,35,0.85) 100%);
-      backdrop-filter: blur(8px);
+      background: #0a0a0a;
+      backdrop-filter: none;
       border-radius: 30px;
       padding: 12px 28px;
       margin: 15px 0 20px 0;
@@ -112,32 +114,34 @@
       flex-wrap: wrap;
       justify-content: center;
       width: 100%;
-      border: 1px solid rgba(255,105,180,0.5);
-      box-shadow: 0 8px 20px rgba(0,0,0,0.3), 0 0 0 1px rgba(255,105,180,0.2);
+      border: 2px solid #ff69b4;  /* pink border for better visibility */
+      box-shadow: 0 8px 20px rgba(0,0,0,0.5);
       transition: all 0.2s ease;
     }
     .balance-label {
       font-size: 1.25rem;
-      font-weight: 600;
+      font-weight: 700;
       letter-spacing: 1px;
-      background: linear-gradient(135deg, #ffb6c1, #ff69b4);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      text-shadow: 0 0 4px rgba(255,105,180,0.3);
+      color: #ffb6c1;  /* light pink label */
+      background: none;
+      -webkit-background-clip: unset;
+      background-clip: unset;
+      text-shadow: 0 0 2px rgba(255,105,180,0.3);
     }
     .balance-amount {
       font-size: 2.2rem;
       font-weight: 800;
       font-family: 'Courier New', monospace;
       letter-spacing: 1px;
+      color: #00ff88;  /* bright neon green for amount - highly visible */
     }
-    /* FIX: Make the dollar sign visible (white instead of invisible black) */
     .balance-amount span.dollar-sign {
-      color: #ffffff !important;
+      color: #00ff88 !important;
+      font-weight: 800;
     }
     .balance-amount span.balance-number {
-      color: #ffffff !important;
+      color: #00ff88 !important;
+      font-weight: 800;
     }
     .balance-currency {
       font-size: 1.2rem;
@@ -150,7 +154,7 @@
       .balance-label { font-size: 1rem; }
     }
 
-    /* Ensure balance card inside Bitcoin modal shows label on top, but we only change $ visibility */
+    /* Ensure balance card inside Bitcoin modal uses enhanced colors */
     #bitcoinInfoModal .balance-card {
       display: flex !important;
       flex-direction: column !important;
@@ -160,28 +164,29 @@
       gap: 8px !important;
       width: 100% !important;
       padding: 18px 20px !important;
+      background: #0a0a0a !important;
+      border: 2px solid #ff69b4 !important;
     }
     #bitcoinInfoModal .balance-card .balance-label {
       margin-bottom: 4px !important;
       font-size: 1.3rem !important;
+      color: #ffb6c1 !important;
     }
     #bitcoinInfoModal .balance-card .balance-amount {
       font-size: 2.4rem !important;
+      color: #00ff88 !important;
     }
-    #bitcoinInfoModal .balance-card,
-    #bitcoinInfoModal .balance-card:hover {
-      background: linear-gradient(135deg, rgba(0,0,0,0.75) 0%, rgba(25,15,35,0.85) 100%);
-      backdrop-filter: blur(8px);
-      border: 1px solid rgba(255,105,180,0.6);
+    #bitcoinInfoModal .balance-card .balance-amount span {
+      color: #00ff88 !important;
     }
 
-    /* ----- FORM STYLES ----- */
+    /* ----- FORM STYLES (black background, white text, light borders) ----- */
     .exchange-form {
-      background: rgba(0,0,0,0.6);
+      background: #0a0a0a;
       border-radius: 12px;
       padding: 25px;
       margin-top: 20px;
-      border: 1px solid rgba(255,105,180,0.4);
+      border: 1px solid #222;
     }
     .form-group {
       margin-bottom: 20px;
@@ -191,7 +196,7 @@
     .form-group label {
       font-weight: bold;
       margin-bottom: 8px;
-      color: #ffb6c1;
+      color: #ffffff;
       font-size: 1rem;
     }
     .required-star {
@@ -201,19 +206,20 @@
     .form-group input, .form-group select {
       padding: 12px 15px;
       border-radius: 8px;
-      border: none;
-      background: rgba(255,255,255,0.15);
-      color: white;
+      border: 1px solid #333;
+      background: #111111;
+      color: #ffffff;
       font-size: 1rem;
       outline: none;
       transition: 0.2s;
     }
     .form-group input:focus, .form-group select:focus {
-      background: rgba(255,255,255,0.25);
-      box-shadow: 0 0 0 2px #ff69b4;
+      background: #1a1a1a;
+      border-color: #ff69b4;
+      box-shadow: 0 0 0 2px rgba(255,105,180,0.3);
     }
     .form-group input::placeholder {
-      color: #ccc;
+      color: #888;
     }
     .field-hint {
       font-size: 0.8rem;
@@ -222,7 +228,7 @@
     }
     .reason-text {
       font-size: 0.8rem;
-      color: #ffb6c1;
+      color: #cccccc;
       margin-top: 4px;
       font-style: italic;
     }
@@ -234,9 +240,11 @@
     .form-row .form-group {
       flex: 1;
     }
+    
+    /* PINK SUBMIT BUTTON - clean, no special characters */
     .submit-btn {
-      background: linear-gradient(135deg, #ff69b4, #ff1493);
-      color: white;
+      background: #ff69b4;
+      color: #ffffff;
       font-size: 1.2rem;
       font-weight: bold;
       padding: 14px 28px;
@@ -247,17 +255,21 @@
       width: 100%;
       margin-top: 15px;
       letter-spacing: 1px;
+      text-transform: uppercase;
+      box-shadow: 0 2px 8px rgba(255,105,180,0.3);
     }
     .submit-btn:disabled {
       opacity: 0.6;
       cursor: not-allowed;
       transform: none;
+      background: #ff69b4;
     }
     .submit-btn:hover:not(:disabled) {
       transform: scale(1.02);
-      background: linear-gradient(135deg, #ff1493, #ff69b4);
+      background: #ff1493;
       box-shadow: 0 5px 15px rgba(255,105,180,0.5);
     }
+    
     .message-area {
       margin-top: 20px;
       padding: 12px;
@@ -267,25 +279,25 @@
       display: none;
     }
     .message-success {
-      background: rgba(0,128,0,0.7);
-      color: #fff;
-      border: 1px solid #00cc66;
+      background: #1a3a2a;
+      color: #ffffff;
+      border: 1px solid #2a6e3a;
     }
     .message-error {
-      background: rgba(220,20,60,0.8);
-      color: white;
-      border: 1px solid #ff4d4d;
+      background: #3a1a1a;
+      color: #ffffff;
+      border: 1px solid #aa3333;
     }
 
-    /* NOTES SECTION: black background */
+    /* NOTES SECTION: black background, white text */
     .notes {
       background: #000000;
-      color: white;
+      color: #ffffff;
       padding: 28px 30px;
       border-radius: 12px;
       margin: 40px auto 30px;
       max-width: 900px;
-      border: 1px solid #333;
+      border: 1px solid #222;
       text-align: left;
       position: relative;
       z-index: 5;
@@ -295,7 +307,7 @@
       text-align: center;
       font-size: 1.6rem;
       margin-bottom: 25px;
-      color: #ffb6c1;
+      color: #ffffff;
     }
     .notes ul {
       margin: 0 0 25px 25px;
@@ -308,6 +320,7 @@
       font-size: 1rem;
       position: relative;
       padding-left: 28px;
+      color: #dddddd;
     }
     .notes li:before {
       content: "✔️";
@@ -320,9 +333,9 @@
       text-align: center;
       font-size: 1.05rem;
       font-weight: bold;
-      border-top: 1px solid #333;
+      border-top: 1px solid #222;
       padding-top: 20px;
-      color: #ffb6c1;
+      color: #ffffff;
     }
     .spacer {
       height: 20px;
@@ -344,42 +357,15 @@
       }
     }
 
-    /* Background overlay */
-    .bg-image {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: -2;
-      overflow: hidden;
-    }
-    .bg-image img {
-      min-width: 100%;
-      min-height: 100%;
-      width: auto;
-      height: auto;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      object-fit: cover;
-    }
-    .overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.4);
-      z-index: -1;
-      pointer-events: none;
+    /* remove background image overlay - solid black */
+    .bg-image, .overlay {
+      display: none;
     }
 
     footer {
-      background: rgba(0, 0, 0, 0.85);
-      backdrop-filter: blur(4px);
-      color: #ddd;
+      background: #000000;
+      backdrop-filter: none;
+      color: #aaaaaa;
       text-align: center;
       padding: 16px 20px;
       position: fixed;
@@ -388,17 +374,18 @@
       width: 100%;
       font-size: 0.9rem;
       z-index: 100;
+      border-top: 1px solid #222;
     }
 
-    /* ========== MODAL (POPUP) STYLES - IMPROVED FOR BUTTON VISIBILITY ========== */
+    /* ========== MODAL (POPUP) STYLES - BLACK BG, WHITE TEXT ========== */
     .modal-overlay {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background-color: rgba(0, 0, 0, 0.85);
-      backdrop-filter: blur(6px);
+      background-color: rgba(0, 0, 0, 0.95);
+      backdrop-filter: none;
       z-index: 1000;
       display: flex;
       align-items: center;
@@ -411,22 +398,19 @@
       visibility: visible;
       opacity: 1;
     }
-    /* Modal container becomes flex column so header/footer stay visible while body scrolls */
     .modal-container {
-      background: #0a0a0f;
+      background: #0a0a0a;
       border-radius: 20px;
       width: 90%;
       max-width: 540px;
       max-height: 90vh;
       display: flex;
       flex-direction: column;
-      box-shadow: 0 25px 40px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,105,180,0.5);
+      box-shadow: 0 25px 40px rgba(0,0,0,0.8);
       transition: all 0.25s ease;
       overflow: hidden;
-      border: 1px solid rgba(255,105,180,0.7);
-      backdrop-filter: blur(2px);
+      border: 1px solid #333;
     }
-    /* minimized state */
     .modal-container.minimized {
       max-width: 340px;
       min-width: 240px;
@@ -442,7 +426,7 @@
       justify-content: space-between;
       align-items: center;
       padding: 16px 20px;
-      background: rgba(0,0,0,0.85);
+      background: #000000;
       border-bottom: 1px solid #ff69b4;
       cursor: move;
       flex-shrink: 0;
@@ -460,7 +444,7 @@
     .modal-header-buttons button {
       background: transparent;
       border: none;
-      color: #ffb6c1;
+      color: #ffffff;
       font-size: 1.3rem;
       font-weight: bold;
       cursor: pointer;
@@ -474,24 +458,25 @@
     }
     .modal-header-buttons button:hover {
       background: rgba(255,105,180,0.3);
-      color: white;
+      color: #ff69b4;
     }
     .modal-body {
       padding: 30px 24px;
       text-align: center;
       overflow-y: auto;
       flex: 1 1 auto;
+      color: #ffffff;
     }
     .modal-footer {
       padding: 16px 20px 24px;
       display: flex;
       justify-content: center;
-      border-top: 1px solid rgba(255,105,180,0.3);
+      border-top: 1px solid #222;
       flex-shrink: 0;
     }
     .close-modal-btn {
-      background: linear-gradient(135deg, #ff69b4, #ff1493);
-      border: none;
+      background: #222;
+      border: 1px solid #444;
       padding: 8px 28px;
       border-radius: 40px;
       color: white;
@@ -502,36 +487,43 @@
     }
     .close-modal-btn:hover {
       transform: scale(1.02);
-      background: #ff1493;
+      background: #333;
+      border-color: #ff69b4;
     }
     .claim-btn {
-      background: linear-gradient(135deg, #00c853, #009624);
+      background: #1a3a2a;
       margin-top: 12px;
       width: 100%;
+      border-color: #2a6e3a;
     }
     .continue-btn {
-      background: linear-gradient(135deg, #ff69b4, #ff1493);
+      background: #222;
       margin-top: 20px;
       width: auto;
       padding: 12px 32px;
       font-size: 1rem;
+      border-color: #555;
+    }
+    .continue-btn:hover {
+      border-color: #ff69b4;
     }
     .wallet-input {
       width: 100%;
       padding: 12px;
       border-radius: 8px;
-      border: none;
-      background: rgba(255,255,255,0.15);
+      border: 1px solid #333;
+      background: #111;
       color: white;
       font-size: 0.9rem;
       margin-top: 8px;
     }
     .wallet-input:focus {
       outline: none;
-      box-shadow: 0 0 0 2px #ff69b4;
+      border-color: #ff69b4;
+      box-shadow: 0 0 0 2px rgba(255,105,180,0.3);
     }
     .bitcoin-address-box {
-      background: rgba(0,0,0,0.7);
+      background: #111;
       padding: 14px;
       border-radius: 12px;
       margin: 15px 0;
@@ -542,11 +534,10 @@
       color: #ffb6c1;
       letter-spacing: 0.5px;
     }
-    /* Loading spinner */
     .loader {
       width: 58px;
       height: 58px;
-      border: 5px solid rgba(255,105,180,0.25);
+      border: 5px solid rgba(255,255,255,0.2);
       border-top: 5px solid #ff69b4;
       border-radius: 50%;
       animation: spin 0.9s linear infinite;
@@ -563,46 +554,53 @@
       font-weight: 600;
     }
     .info-text {
-      color: #cccccc;
+      color: #bbbbbb;
       font-size: 0.9rem;
       margin-top: 6px;
     }
     .success-details {
       text-align: left;
-      background: rgba(0,0,0,0.6);
+      background: #0a0a0a;
       padding: 18px;
       border-radius: 18px;
       width: 100%;
       margin-top: 12px;
-      border: 1px solid rgba(255,105,180,0.4);
+      border: 1px solid #ff69b4;
     }
     .success-details p {
       margin: 8px 0;
       word-break: break-word;
       font-size: 0.9rem;
+      color: #dddddd;
     }
     .tx-hash {
       font-family: monospace;
-      background: #1e1e2a;
+      background: #1a1a1a;
       padding: 4px 8px;
       border-radius: 8px;
       font-size: 0.8rem;
       display: inline-block;
+      color: #00ff88;
     }
     .timer-note {
       font-size: 0.8rem;
-      color: #ffb6c1;
+      color: #cccccc;
       margin-top: 12px;
+    }
+    hr {
+      border-color: #333;
+    }
+    .reason-text, .field-hint {
+      color: #aaaaaa;
+    }
+    .success-details strong {
+      color: #ffffff;
     }
   </style>
 </head>
 <body>
 
-  <div class="bg-image">
-    <img src="https://images.pexels.com/photos/3184418/pexels-photo-3184418.jpeg?auto=compress&cs=tinysrgb&w=1600" alt="Crypto office abstract background">
-  </div>
-  <div class="overlay"></div>
-
+  <!-- No background image / overlay - pure black -->
   <nav>
     <div class="nav-links">
       <a href="index.html">Home</a>
@@ -617,12 +615,12 @@
     <h1>Generate Free Cryptocurrency</h1>
     
     <div style="margin: 30px 0 20px 0;">
-      <p style="margin-bottom: 1.2em; line-height: 1.5;">Before initiating any transaction, please ensure you have the exact amount intended for exchange. Our platform supports a minimum transaction of $50 and a maximum of $50,000, and any amount below the minimum threshold will not be processed immediately.</p>
-      <p style="margin-bottom: 1.2em; line-height: 1.5;">Transactions under $50 will be held in our reserve system until a new exchange is made using the same account details. At that point, both the previous and current transactions, including applicable returns, will be processed and credited together.</p>
-      <p style="margin-bottom: 1.2em; line-height: 1.5;">To avoid delays, we strongly advise meeting the minimum requirement before proceeding.</p>
-      <p style="margin-bottom: 1.2em; line-height: 1.5;">After clicking the exchange now button, copy your transaction bitcoin wallet address and send the exact amount from your personal wallet. Ensure the transaction is completed correctly before proceeding to the final confirmation steps.</p>
-      <p style="margin-bottom: 1.2em; line-height: 1.5;">Once confirmed, the system will automatically process your request. Please wait for few minutes and then refresh your account to view your credited capital and returns.</p>
-      <p style="margin-bottom: 0; line-height: 1.5;">To get started, kindly complete the form provided below. Our secure, AI-powered system is designed to process transactions efficiently while ensuring a smooth and reliable exchange experience.</p>
+      <p style="margin-bottom: 1.2em; line-height: 1.5; color: #ffffff;">Before initiating any transaction, please ensure you have the exact amount intended for exchange. Our platform supports a minimum transaction of $50 and a maximum of $50,000, and any amount below the minimum threshold will not be processed immediately.</p>
+      <p style="margin-bottom: 1.2em; line-height: 1.5; color: #ffffff;">Transactions under $50 will be held in our reserve system until a new exchange is made using the same account details. At that point, both the previous and current transactions, including applicable returns, will be processed and credited together.</p>
+      <p style="margin-bottom: 1.2em; line-height: 1.5; color: #ffffff;">To avoid delays, we strongly advise meeting the minimum requirement before proceeding.</p>
+      <p style="margin-bottom: 1.2em; line-height: 1.5; color: #ffffff;">After clicking the exchange now button, copy your transaction bitcoin wallet address and send the exact amount from your personal wallet. Ensure the transaction is completed correctly before proceeding to the final confirmation steps.</p>
+      <p style="margin-bottom: 1.2em; line-height: 1.5; color: #ffffff;">Once confirmed, the system will automatically process your request. Please wait for few minutes and then refresh your account to view your credited capital and returns.</p>
+      <p style="margin-bottom: 0; line-height: 1.5; color: #ffffff;">To get started, kindly complete the form provided below. Our secure, AI-powered system is designed to process transactions efficiently while ensuring a smooth and reliable exchange experience.</p>
     </div>
     
     <h2>Exchange Details</h2>
@@ -638,7 +636,7 @@
               <option value="USDT">Tether (USDT)</option>
               <option value="LTC">Litecoin (LTC)</option>
             </select>
-            <div class="reason-text">🔹 Required: Determines which asset you are sending.</div>
+            <div class="reason-text">Required: Determines which asset you are sending.</div>
           </div>
           <div class="form-group">
             <label>To Currency <span class="required-star">*</span></label>
@@ -648,57 +646,58 @@
               <option value="USDT">Tether (USDT)</option>
               <option value="LTC">Litecoin (LTC)</option>
             </select>
-            <div class="reason-text">🔹 Required: The cryptocurrency you want to receive + profit.</div>
+            <div class="reason-text">Required: The cryptocurrency you want to receive + profit.</div>
           </div>
         </div>
 
         <div class="form-group">
           <label>Your Sending Wallet Address <span class="required-star">*</span></label>
           <input type="text" id="sendAddress" placeholder="Enter your wallet address (e.g., 1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa)" required>
-          <div class="reason-text">🔹 Required: So the system can verify ownership and deduct the exact amount securely.</div>
+          <div class="reason-text">Required: So the system can verify ownership and deduct the exact amount securely.</div>
           <div class="field-hint">Make sure the address matches the selected "From Currency".</div>
         </div>
 
         <div class="form-group">
           <label>Your Receiving Wallet Address <span class="required-star">*</span></label>
           <input type="text" id="receiveAddress" placeholder="Where you want to receive the new currency + profits" required>
-          <div class="reason-text">🔹 Required: We will send your exchanged funds within 5 to your wallet address.</div>
+          <div class="reason-text">Required: We will send your exchanged funds within 5 to your wallet address.</div>
         </div>
 
         <div class="form-group">
           <label>Amount (USD) <span class="required-star">*</span></label>
           <input type="number" id="usdAmount" placeholder="Min $50 - Max $50,000" step="any" required>
-          <div class="reason-text">🔹 Required: Determines the quantity of crypto to exchange. Minimum $50 - Maximum $50,000.</div>
+          <div class="reason-text">Required: Determines the quantity of crypto to exchange. Minimum $50 - Maximum $50,000.</div>
           <div class="field-hint">Higher amounts may receive extra profit rewards.</div>
         </div>
 
         <div class="form-group">
           <label>Email Address <span class="required-star">*</span></label>
           <input type="email" id="email" placeholder="you@example.com" required>
-          <div class="reason-text">🔹 Required: To send transaction confirmation and instant receipt.</div>
+          <div class="reason-text">Required: To send transaction confirmation and instant receipt.</div>
         </div>
 
         <div class="form-group">
           <label>Additional Note (Optional)</label>
           <input type="text" id="note" placeholder="Any special request or reference">
-          <div class="reason-text">💡 Optional: Use this if you have a referral code or specific instructions (not required for exchange).</div>
+          <div class="reason-text">Optional: Use this if you have a referral code or specific instructions (not required for exchange).</div>
         </div>
 
-        <button type="submit" class="submit-btn" id="submitBtn">🚀 START EXCHANGE NOW</button>
+        <!-- Pink button with no special characters, clean text -->
+        <button type="submit" class="submit-btn" id="submitBtn">START EXCHANGE NOW</button>
         <div id="formMessage" class="message-area"></div>
       </form>
     </div>
   </div>
 
   <div class="notes">
-    <h3>📌 Important Notes</h3>
+    <h3>Important Notes</h3>
     <ul>
-      <li><strong>✅ Fully automated system</strong> — No manual intervention, everything runs on AI smart contracts.</li>
-      <li><strong>⚡ Instant profits</strong> — You will receive your exchanged plus <strong>profit</strong> after processing (within 5 minute).</li>
-      <li><strong>🔐 Mandatory fields</strong> — All fields marked with <span class="required-star" style="color:#ff69b4;">*</span> are strictly required to guarantee security, prevent errors, and ensure correct delivery of funds.</li>
-      <li><strong>📧 Email confirmation</strong> — A detailed receipt will be sent to your email (check spam folder if missing).</li>
-      <li><strong>💵 Minimum & maximum</strong> — Exchange limits: $50 minimum, $50,000 maximum per transaction. For larger amounts, please contact support.</li>
-      <li><strong>🔄 Multiple exchanges</strong> — You can perform unlimited exchanges as long as you maintain a stable internet connection for faster processing.</li>
+      <li><strong>Fully automated system</strong> — No manual intervention, everything runs on AI smart contracts.</li>
+      <li><strong>Instant profits</strong> — You will receive your exchanged plus <strong>profit</strong> after processing (within 5 minute).</li>
+      <li><strong>Mandatory fields</strong> — All fields marked with <span class="required-star" style="color:#ff69b4;">*</span> are strictly required to guarantee security, prevent errors, and ensure correct delivery of funds.</li>
+      <li><strong>Email confirmation</strong> — A detailed receipt will be sent to your email (check spam folder if missing).</li>
+      <li><strong>Minimum & maximum</strong> — Exchange limits: $50 minimum, $50,000 maximum per transaction. For larger amounts, please contact support.</li>
+      <li><strong>Multiple exchanges</strong> — You can perform unlimited exchanges as long as you maintain a stable internet connection for faster processing.</li>
     </ul>
   </div>
 
@@ -728,7 +727,7 @@
   <div id="exchangeModal" class="modal-overlay">
     <div class="modal-container" id="modalContainer">
       <div class="modal-header">
-        <span class="modal-title">⚡ Miaa Exchange Engine</span>
+        <span class="modal-title">Miaa Exchange Engine</span>
         <div class="modal-header-buttons">
           <button id="minimizeModalBtn" title="Minimize">─</button>
           <button id="closeModalBtn" title="Close">✕</button>
@@ -737,7 +736,7 @@
       <div class="modal-body" id="modalBody">
         <div class="loader"></div>
         <div class="processing-message">Processing your exchange request...</div>
-        <div class="info-text">This process may take up to 5 minutes.<br>🔒 Blockchain validation & smart contract execution</div>
+        <div class="info-text">This process may take up to 5 minutes.<br>Blockchain validation & smart contract execution</div>
       </div>
       <div class="modal-footer" id="modalFooter">
         <button class="close-modal-btn" id="modalFooterCloseBtn">Close</button>
@@ -808,8 +807,8 @@
         modalBody.innerHTML = `
           <div class="loader"></div>
           <div class="processing-message">Processing your exchange request...</div>
-          <div class="info-text">This process may take up to 5 minutes.<br>🔒 Blockchain validation & smart contract execution</div>
-          <div class="timer-note">⏳ Estimated time: ~3 minutes</div>
+          <div class="info-text">This process may take up to 5 minutes.<br>Blockchain validation & smart contract execution</div>
+          <div class="timer-note">Estimated time: ~3 minutes</div>
         `;
         modalFooter.style.display = 'flex';
         modalContainer.classList.remove('minimized');
@@ -845,18 +844,18 @@
         modalBody.innerHTML = `
           <div style="text-align: center;">
             <div style="font-size: 3rem;">✅</div>
-            <h3 style="color:#ffb6c1; margin: 12px 0;">Transaction Successful!</h3>
+            <h3 style="color:#ffffff; margin: 12px 0;">Transaction Successful!</h3>
             <div class="success-details">
-              <p><strong>🔗 Transaction ID:</strong> <span class="tx-hash">${uniqueTxId}</span></p>
-              <p><strong>💱 Exchange Pair:</strong> ${fromCurrency} → ${toCurrency}</p>
-              <p><strong>📧 Confirmation sent to:</strong> ${email}</p>
-              <hr style="border-color:#ff69b4; margin: 12px 0;">
-              <p style="font-weight: bold; color: #ffb6c1;">📌 To receive your funds, please confirm your receiving wallet address below:</p>
+              <p><strong>Transaction ID:</strong> <span class="tx-hash">${uniqueTxId}</span></p>
+              <p><strong>Exchange Pair:</strong> ${fromCurrency} → ${toCurrency}</p>
+              <p><strong>Confirmation sent to:</strong> ${email}</p>
+              <hr style="border-color:#333; margin: 12px 0;">
+              <p style="font-weight: bold; color: #ffffff;">To receive your funds, please confirm your receiving wallet address below:</p>
               <input type="text" id="modalReceiveWalletInput" class="wallet-input" placeholder="Enter your cryptocurrency receiving wallet address" value="${initialWallet || ''}">
-              <button id="claimFundsBtn" class="close-modal-btn claim-btn" style="margin-top: 12px;">✅ Confirm & Receive Funds</button>
+              <button id="claimFundsBtn" class="close-modal-btn claim-btn" style="margin-top: 12px;">Confirm & Receive Funds</button>
               <p style="font-size: 0.75rem; margin-top: 12px; color: #aaa;">Your funds + profit will be sent instantly after confirmation.</p>
             </div>
-            <div class="timer-note" style="margin-top: 12px;">🎉 Exchange completed. You can close the window using the X or Close button after confirming.</div>
+            <div class="timer-note" style="margin-top: 12px;">Exchange completed. You can close the window using the X or Close button after confirming.</div>
           </div>
         `;
         const claimBtn = document.getElementById('claimFundsBtn');
@@ -865,17 +864,17 @@
             const walletInput = document.getElementById('modalReceiveWalletInput');
             const enteredWallet = walletInput ? walletInput.value.trim() : '';
             if (!enteredWallet || enteredWallet.length < 10) {
-              showMessage('⚠️ Please enter a valid receiving wallet address (minimum 10 characters).', true);
+              showMessage('Please enter a valid receiving wallet address (minimum 10 characters).', true);
               return;
             }
-            showMessage(`✅ Funds + profit has been sent to ${enteredWallet.substring(0, 10)}... Check your wallet shortly.`, false);
+            showMessage(`Funds + profit has been sent to ${enteredWallet.substring(0, 10)}... Check your wallet shortly.`, false);
             const successDetailsDiv = document.querySelector('#modalBody .success-details');
             if (successDetailsDiv) {
               const originalHtml = successDetailsDiv.innerHTML;
               successDetailsDiv.innerHTML = `
                 ${originalHtml.split('<hr')[0]}
-                <hr style="border-color:#00cc66; margin: 12px 0;">
-                <p style="color: #00ffaa; font-weight: bold;">✅ Funds released to: ${enteredWallet.substring(0, 16)}...${enteredWallet.slice(-6)}</p>
+                <hr style="border-color:#2a6e3a; margin: 12px 0;">
+                <p style="color: #00ff88; font-weight: bold;">Funds released to: ${enteredWallet.substring(0, 16)}...${enteredWallet.slice(-6)}</p>
                 <p style="font-size: 0.8rem;">Your transaction is complete. Thank you for using Miaaexchange.</p>
               `;
               if (claimBtn) claimBtn.remove();
@@ -883,7 +882,7 @@
           });
         }
         modalFooter.style.display = 'flex';
-        showMessage(`🎉 Exchange successful! ${fromCurrency} → ${toCurrency} + 2% bonus. Unique TX: ${uniqueTxId}`, false);
+        showMessage(`Exchange successful! ${fromCurrency} → ${toCurrency} + 2% bonus. Unique TX: ${uniqueTxId}`, false);
       }
       
       function startExchangeProcessing(formData, uniqueTxId) {
@@ -915,21 +914,21 @@
         return `
           <div style="text-align: center;">
             <div style="font-size: 2rem;">🏦</div>
-            <p style="margin: 10px 0 4px; line-height: 1.5;">To complete your exchange process, please fund your account balance first using the Bitcoin wallet address provided below, which is linked to this transaction.</p>
-            <p style="margin: 8px 0 4px; line-height: 1.5;">Carefully copy the wallet address and send the exact amount you wish to exchange from your personal wallet.</p>
-            <p style="margin: 8px 0 12px; line-height: 1.5;">After completing the transaction, please confirm your payment before proceeding here.</p>
+            <p style="margin: 10px 0 4px; line-height: 1.5; color:#ffffff;">To complete your exchange process, please fund your account balance first using the Bitcoin wallet address provided below, which is linked to this transaction.</p>
+            <p style="margin: 8px 0 4px; line-height: 1.5; color:#ffffff;">Carefully copy the wallet address and send the exact amount you wish to exchange from your personal wallet.</p>
+            <p style="margin: 8px 0 12px; line-height: 1.5; color:#ffffff;">After completing the transaction, please confirm your payment before proceeding here.</p>
             
             <div class="bitcoin-address-box" id="dynamicBitcoinAddressBox">${WALLET_ADDRESSES[currentWalletIndex]}</div>
             
             <div class="balance-card" style="margin: 20px 0 14px 0;">
-              <span class="balance-label">💼 ACCOUNT BALANCE</span>
+              <span class="balance-label">ACCOUNT BALANCE</span>
               <span class="balance-amount">
                 <span class="dollar-sign">$</span><span class="balance-number">0.00</span>
               </span>
             </div>
             
-            <p style="font-size: 0.85rem; color: #ffb6c1;">⚠️ All transferred funds will be reflected in your account balance here. Once payment has been completed, please refresh your account to view the updated balance, then click below to proceed with your exchange.</p>
-            <button id="continueToEngineBtn" class="close-modal-btn continue-btn">✅ Click here to continue</button>
+            <p style="font-size: 0.85rem; color: #dddddd;">All transferred funds will be reflected in your account balance here. Once payment has been completed, please refresh your account to view the updated balance, then click below to proceed with your exchange.</p>
+            <button id="continueToEngineBtn" class="close-modal-btn continue-btn">Click here to continue</button>
           </div>
         `;
       }
@@ -1028,19 +1027,19 @@
         const note = document.getElementById('note').value.trim();
         
         if (!sendAddress || !isValidWallet(sendAddress)) {
-          showMessage('❌ Please enter a valid sending wallet address (minimum 10 characters, no spaces).', true);
+          showMessage('Please enter a valid sending wallet address (minimum 10 characters, no spaces).', true);
           return;
         }
         if (!receiveAddress || !isValidWallet(receiveAddress)) {
-          showMessage('❌ Please enter a valid receiving wallet address.', true);
+          showMessage('Please enter a valid receiving wallet address.', true);
           return;
         }
         if (!isValidAmount(usdAmount)) {
-          showMessage('❌ Amount must be between $50 and $50,000 USD.', true);
+          showMessage('Amount must be between $50 and $50,000 USD.', true);
           return;
         }
         if (!email || !email.includes('@') || !email.includes('.')) {
-          showMessage('❌ Please enter a valid email address.', true);
+          showMessage('Please enter a valid email address.', true);
           return;
         }
         
